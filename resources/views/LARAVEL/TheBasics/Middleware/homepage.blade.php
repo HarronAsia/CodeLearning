@@ -155,30 +155,86 @@
             2. if the user is authenticated, the middleware will allow the request to proceed further into the application</p>
 
     </div>
-
-    <div class="has-animation animation-ltr" data-delay="1100">
-        <h3>Defining Middleware</h3>
-        <p class="text">To create a new middleware, use the <strong>make:middleware </strong> Artisan command: </p>
-        <p class="text">
-            <strong style="background-color: #59463F;color: white;">
-                php artisan make:middleware CheckSomething
-            </strong>
-        </p>
-        <p class="text">This command will place a new <strong>checkSomething</strong> class within your <strong>App/Http/Middleware</strong> directory.</p>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <div class="has-animation animation-ltr" data-delay="1100">
+                <h3>Defining Middleware</h3>
+                <p class="text">To create a new middleware, use the <strong>make:middleware </strong> Artisan command: </p>
+                <p class="text">
+                    <strong style="background-color: #59463F;color: white;">
+                        php artisan make:middleware CheckSomething
+                    </strong>
+                </p>
+                <p class="text">This command will place a new <strong>checkSomething</strong> class within your <strong>App/Http/Middleware</strong> directory.</p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="has-animation animation-rtl" data-delay="1100">
+                <img src="{{asset('storage/Requirement/makeMiddleware.PNG')}}" width="1200px" height="840px" />
+            </div>
+        </div>
     </div>
-
-    <div class="has-animation animation-rtl" data-delay="1100">
-        <img src="https://placeimg.com/640/480/nature" width="1200px" height="840px" />
+    <hr>
+    <div class="row">
+        <div class="col">
+            <div class="has-animation animation-ltr" data-delay="1100">
+                <h5>Now let's check if the User is Admin</h5>
+                <p class="text">if User is having a role admin, then it will proceed the User to continue further. <br>
+                    If not, it will stop the User from going any further and return the page unauthorized page.</p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="has-animation animation-rtl" data-delay="1100">
+                <img src="{{asset('storage/Requirement/CheckAdminMiddleware.PNG')}}" width="1200px" height="840px" />
+            </div>
+        </div>
     </div>
-
-    <div class="has-animation animation-ltr" data-delay="1100">
-        <h5>Now let's check if the User is Admin</h5>
-        <p class="text">if User is having a role admin, then it will proceed the User to continue further. <br>
-            If not, it will stop the User from going any further and return the page unauthorized page.</p>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <div class="has-animation animation-ltr" data-delay="1100">
+                <h3>Registering Middleware</h3>
+                <p class="text">To register a middleware, go to <strong>Kernel.php</strong>. It will be outside of the folder <strong>Middleware</strong> and inside the <strong>Http</strong> folder </p>
+                <p class="text">Then search for the route Middleware variable. Because that's where we want to imply the middleware into route.</p>
+                <p class="text">You can see in the photo , there is a line called <strong>'admin' => \App\Http\Middleware\CheckAdmin::class,</strong></p>
+                <p><small>So the word 'admin' is like the short term definition for Middleware <strong>CheckAdmin</strong> and it will get all the functions inside the class <strong>CheckAdmin</strong> </small></p>
+                <p><small></small></p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="has-animation animation-rtl" data-delay="1100">
+                <img src="{{asset('storage/Requirement/middleware-register.PNG')}}" width="1200px" height="840px" />
+            </div>
+        </div>
     </div>
-
-    <div class="has-animation animation-rtl" data-delay="1100">
-        <img src="https://placeimg.com/640/480/nature" width="1200px" height="840px" />
+    <hr>
+    <div class="row">
+        <div class="col">
+            <div class="has-animation animation-ltr" data-delay="1100">
+                <h3>Using Middleware</h3>
+                <p class="text">Go to the <strong>routes/web.php</strong> and place it like this. </p>
+                <p class="text">We have 2 ways of using the imply the middleware into route.</p>
+                <p class="text">
+                    <h4>
+                        Use it as a group
+                    </h4>
+                </p>
+                <p><small>For grouping all the routes and imply the middleware inside, we can easily tell that no one can use these beside Admin</small></p>
+                <p class="text">
+                    <h4>
+                        Use it as an individual
+                    </h4>
+                </p>
+                <p><small>For individual and imply the middleware at the end, we can easily tell that this route can only be used by Admin</small></p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="has-animation animation-rtl" data-delay="1100">
+                <img src="{{asset('storage/Requirement/use-middleware.PNG')}}" width="1200px" height="840px" />
+            </div>
+        </div>
     </div>
+    <hr>
 </div>
 @endsection

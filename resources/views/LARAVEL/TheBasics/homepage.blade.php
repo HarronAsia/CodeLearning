@@ -132,7 +132,7 @@
         </div>
         <div class="col-md-4 col-sm-12 col-12">
             <div class="serv-section-2">
-                <a href="#">
+                <a href="{{route('laravel.csrf')}}">
                     <div class="serv-section-2-icon">
                         <i class="fas fa-signature"></i>
                     </div>
@@ -148,7 +148,7 @@
     <div class="row mt-60">
         <div class="col-md-4 col-sm-12 col-12">
             <div class="serv-section-2">
-                <a href="#">
+                <a href="{{route('laravel.controller')}}">
                     <div class="serv-section-2-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -162,7 +162,7 @@
         </div>
         <div class="col-md-4 col-sm-12 col-12">
             <div class="serv-section-2 serv-section-2-act">
-                <a href="#">
+                <a href="{{route('laravel.request')}}">
                     <div class="serv-section-2-icon serv-section-2-icon-act">
                         <i class="fas fa-question-circle"></i>
                     </div>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <h1 class="text-center">Getting Started</h1>
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 
@@ -55,6 +56,5 @@
 
     </div>
 </div>
-
 
 @endsection

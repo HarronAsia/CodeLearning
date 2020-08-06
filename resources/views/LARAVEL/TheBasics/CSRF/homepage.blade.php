@@ -226,7 +226,7 @@
                     <h5 class="h5 text-muted">Form with </h5>
                     <h1 class="h1 mb-5">CSRF Token </h1>
 
-                    <form action="{{route('laravel.csrf.post')}}" method="POST">
+                    <form action="{{route('laravel.csrf.post', app()->getLocale())}}" method="POST">
                         @csrf
                         <input type="text" name="name" placeholder="Enter Your Name" required>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -236,7 +236,7 @@
                     <h5 class="h5 text-muted">Form Without</h5>
                     <h1 class="h1 mb-5">CSRF Token </h1>
 
-                    <form action="{{route('laravel.nonecsrf.post')}}" method="POST">
+                    <form action="{{route('laravel.nonecsrf.post', app()->getLocale())}}" method="POST">
                         <input type="text" name="name" placeholder="Enter Your Name" required>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

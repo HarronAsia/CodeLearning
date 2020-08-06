@@ -51,15 +51,15 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $information)
+    public function store(Request $request)
     {
 
-
+        
         $data = $request;
         $profile = new Profile();
 
-        $user = $this->userRepo->showUser($information);
-
+        $user = $this->userRepo->showUser($data['user_id']);
+        
         $profile->user_id = $user->id;
         $profile->place = $data['place'];
         $profile->job = $data['job'];
@@ -72,7 +72,7 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        return redirect()->route('account.profile', [$information]);
+        return redirect()->route('profile.show', [$data['user_id']]);
     }
 
     /**
@@ -83,9 +83,7 @@ class ProfileController extends Controller
      */
     public function show($information)
     {
-        $user = $this->userRepo->showUser($information);
-        $profile = $this->profileRepo->getProfile($user->id);
-        return view('confirms.User.Profile.index', compact('profile', 'user'));
+
     }
 
     /**
@@ -94,15 +92,15 @@ class ProfileController extends Controller
      * @param  int  $information
      * @return \Illuminate\Http\Response
      */
-    public function edit($information)
+    public function edit($locale,$information)
     {
 
         $profile = $this->profileRepo->getProfile($information);
         if (Auth::user()->id != $profile->user_id) {
-            return redirect()->route('profile.index', ['name' => Auth::user()->name, 'id' => Auth::user()->id]);
+            return redirect()->route('profile.show', ['information' => $information]);
         } else {
             $user = $this->userRepo->showUser($information);
-            return view('confirms.User.Profile.edit', compact('profile', 'user'));
+            return view('User.Information.edit', compact('profile', 'user'));
         }
     }
 
@@ -113,10 +111,10 @@ class ProfileController extends Controller
      * @param  int  $information
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $information)
+    public function update(Request $request,$locale)
     {
         $data = $request;
-        $profile = $this->profileRepo->showProfile($information);
+        $profile = $this->profileRepo->showProfile( $data['user_id']);
 
         $profile->place = $data['place'];
         $profile->job = $data['job'];
@@ -139,7 +137,7 @@ class ProfileController extends Controller
 
         $profile->update();
 
-        return redirect()->route('account.profile', [$information]);
+        return redirect()->route('profile.show', [$data['user_id']]);
     }
 
     /**

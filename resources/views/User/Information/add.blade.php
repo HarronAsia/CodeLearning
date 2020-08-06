@@ -116,6 +116,22 @@
         font-weight: 600;
         color: #0062cc;
     }
+
+    textarea[resize='none'] {
+        resize: none !important;
+    }
+
+    textarea[resize='both'] {
+        resize: both !important;
+    }
+
+    textarea[resize='vertical'] {
+        resize: vertical !important;
+    }
+
+    textarea[resize='horizontal'] {
+        resize: horizontal !important;
+    }
 </style>
 <div class="container emp-profile">
 
@@ -124,9 +140,9 @@
             <div class="tab-content profile-tab" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                    <form action="{{ route('information.confirm', ['information' => Auth::user()->id])}} " method="POST" enctype="multipart/form-data" id="editprofile">
+                    <form action="{{ route('information.store',app()->getLocale())}} " method="POST" enctype="multipart/form-data" id="editprofile">
                         @csrf
-
+                        <input type="hidden" class="form-control" name="user_id" value="{{Auth::user()->id}}">
                         <div class="form-group">
                             <i class="fas fa-search-location"></i> &ensp;<label for="place">Your Place</label>
                             <input type="text" class="form-control" name="place" placeholder="Enter Your Place">

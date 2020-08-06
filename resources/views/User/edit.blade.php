@@ -116,6 +116,11 @@
         font-weight: 600;
         color: #0062cc;
     }
+
+    img{
+        width: 100%;
+        height: auto;
+    }
 </style>
 <div class="container emp-profile">
 
@@ -124,17 +129,17 @@
             <div class="tab-content profile-tab" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                    <form action="{{ route('profile.confirm', ['profile' => Auth::user()->id])}} " method="POST" enctype="multipart/form-data" id="editprofile">
+                    <form action="{{ route('profile.confirm', ['locale'=>app()->getLocale(),'profile' => Auth::user()->id])}} " method="POST" enctype="multipart/form-data" id="editprofile">
                         @csrf
 
                         <div class="form-group">
                             @if ($user->photo == NULL)
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" style="width: 300px; height: 300px;"/>
                             @else
-                            <img src="{{asset('storage/'.$user->name.'/'.$user->photo)}}" alt="Image">
+                            <img src="{{asset('storage/'.$user->name.'/'.$user->photo)}}" alt="Image" style="width: 300px; height: 300px;">
                             @endif
                             &ensp;<i class="fa fa-arrow-right" style="font-size:48px;"></i>&ensp;
-                            <img id="image_preview_container" src="{{asset('storage/default.png')}}" alt="preview image" style="max-width: 500px ; max-height:500px;">
+                            <img id="image_preview_container" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="preview image" style="width: 300px ; height:300px;">
                             <div>
                                 <i class="fas fa-image"></i>&ensp;<label for="photo">Your Image</label>
                                 <input type="file" class="form-control" name="photo" id="photo" value="{{ $user->photo}}">

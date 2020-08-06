@@ -26,6 +26,24 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(
+            \App\Repositories\Community\CommunityRepositoryInterface::class,
+            \App\Repositories\Community\CommunityRepository::class,
+
+        );
+
+        $this->app->singleton(
+            \App\Repositories\Post\PostRepositoryInterface::class,
+            \App\Repositories\Post\PostRepository::class,
+
+        );
+
+        $this->app->singleton(
+            \App\Repositories\Comment\CommentRepositoryInterface::class,
+            \App\Repositories\Comment\CommentRepository::class,
+
+        );
+
+        $this->app->singleton(
             \App\Repositories\CSRF\CsrfRepositoryInterface::class,
             \App\Repositories\CSRF\CsrfRepository::class,
 

@@ -192,7 +192,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <form action="{{ route('profile.update', ['profile' =>  Auth::user()->id])}} " method="POST" enctype="multipart/form-data" id="editprofile">
+            <form action="{{ route('profile.update', ['locale'=>app()->getLocale(),'profile' =>  Auth::user()->id])}} " method="POST" enctype="multipart/form-data" id="editprofile">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name='name' value="{{$user->name}}">

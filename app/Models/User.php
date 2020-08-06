@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function following()
+    {
+        return $this->belongsToMany(Thread::class, 'followers', 'follower_id', 'following_id')->withTimestamps();
+    }
 }

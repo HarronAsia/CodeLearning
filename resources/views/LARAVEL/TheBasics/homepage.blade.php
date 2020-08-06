@@ -98,33 +98,33 @@
 
 <div class="container">
     <div class="section-heading center-holder">
-        <h3>Learn Laravel is easy</h3>
+        <h3>{{__('Learn Laravel is easy')}}</h3>
         <div class="section-heading-line"></div>
-        <p>Just 3 months you can learn all the structures of the Laravel Framework</p>
+        <p>{{__('Just 3 months you can learn all the structures of the Laravel Framework')}}</p>
     </div>
     <div class="row mt-60">
         <div class="col-md-4 col-sm-12 col-12">
             <div class="serv-section-2">
-                <a href="{{route('laravel.route')}}">
+                <a href="{{route('laravel.route', app()->getLocale())}}">
                     <div class="serv-section-2-icon">
                         <i class="fas fa-route"></i>
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4>Routing</h4>
+                    <h4>{{__('Routing')}}</h4>
                 </div>
                 <div class="section-heading-line-left"></div>
             </div>
         </div>
         <div class="col-md-4 col-sm-12 col-12">
             <div class="serv-section-2 serv-section-2-act">
-                <a href="{{route('laravel.middleware')}}">
+                <a href="{{route('laravel.middleware', app()->getLocale())}}">
                     <div class="serv-section-2-icon serv-section-2-icon-act">
                         <i class="fas fa-cogs"></i>
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4>Middleware</h4>
+                    <h4>{{__('Middleware')}}</h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -132,13 +132,13 @@
         </div>
         <div class="col-md-4 col-sm-12 col-12">
             <div class="serv-section-2">
-                <a href="{{route('laravel.csrf')}}">
+                <a href="{{route('laravel.csrf', app()->getLocale())}}">
                     <div class="serv-section-2-icon">
                         <i class="fas fa-signature"></i>
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4>CSRF Protection</h4>
+                    <h4>{{__('CSRF Protection')}}</h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -148,13 +148,13 @@
     <div class="row mt-60">
         <div class="col-md-4 col-sm-12 col-12">
             <div class="serv-section-2">
-                <a href="{{route('laravel.controller')}}">
+                <a href="{{route('laravel.controller', app()->getLocale())}}">
                     <div class="serv-section-2-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4>Controllers </h4>
+                    <h4>{{__('Controllers')}} </h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -162,13 +162,13 @@
         </div>
         <div class="col-md-4 col-sm-12 col-12">
             <div class="serv-section-2 serv-section-2-act">
-                <a href="{{route('laravel.request')}}">
+                <a href="{{route('laravel.request', app()->getLocale())}}">
                     <div class="serv-section-2-icon serv-section-2-icon-act">
                         <i class="fas fa-question-circle"></i>
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4>Request </h4>
+                    <h4>{{__('Request')}} </h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -182,7 +182,7 @@
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4> Responses </h4>
+                    <h4> {{__('Responses')}} </h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -198,7 +198,7 @@
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4> Views </h4>
+                    <h4> {{__('Views')}} </h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -212,7 +212,7 @@
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4> URL Generation </h4>
+                    <h4> {{__('URL Generation')}} </h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -226,7 +226,7 @@
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4> Session </h4>
+                    <h4> {{__('Session')}} </h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -242,7 +242,7 @@
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4> Validation </h4>
+                    <h4> {{__('Validation')}} </h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -256,7 +256,7 @@
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4> Error Handling </h4>
+                    <h4> {{__('Error Handling')}} </h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 
@@ -270,7 +270,7 @@
                     </div>
                 </a>
                 <div class="serv-section-desc">
-                    <h4> Logging </h4>
+                    <h4> {{__('Logging')}} </h4>
                 </div>
                 <div class="section-heading-line-left"></div>
 

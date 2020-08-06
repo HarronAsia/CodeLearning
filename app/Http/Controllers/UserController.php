@@ -28,14 +28,14 @@ class UserController extends Controller
     }
 
 
-    public function show($profile)
+    public function show($locale,$profile)
     {
         $user = $this->userRepo->showUser($profile);
         $profile = $this->profileRepo->getProfile($user->id);
         return view('User.profile', compact('user','profile'));
     }
 
-    public function edit($profile)
+    public function edit($locale,$profile)
     {
         if (Auth::user()->id != $profile) {
             return redirect()->route('profile.edit', ['name' => Auth::user()->name, 'id' => Auth::user()->id]);
@@ -46,7 +46,7 @@ class UserController extends Controller
         }
     }
 
-    public function confirm(StoreUser $request, $profile)
+    public function confirm(StoreUser $request,$locale, $profile)
     {
 
         $data = $request->validated();
@@ -84,7 +84,7 @@ class UserController extends Controller
      * @param  int  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $profile)
+    public function update(Request $request,$locale, $profile)
     {
        
         $data = $request;

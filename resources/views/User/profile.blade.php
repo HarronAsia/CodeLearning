@@ -225,7 +225,7 @@
                     @if(Auth::user()->id == $user->id)
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{ route('profile.edit', ['profile' => $user->id])}}" class="btn btn-info">Edit Profile</a>
+                            <a href="{{ route('profile.edit', ['locale'=>app()->getLocale(),'profile' => $user->id])}}" class="btn btn-info">Edit Profile</a>
 
                         </div>
                     </div>
@@ -292,11 +292,11 @@
                         @if(Auth::user()->id == $user->id)
                             @if($profile->user_id?? '' == Auth::user()->id)
                             <div class="col-md-12">
-                                <a href="{{ route('information.edit', ['information' => $user->id])}}" class="btn btn-info">Edit Information</a>
+                                <a href="{{ route('information.edit', ['locale'=>app()->getLocale(),'information' => $user->id])}}" class="btn btn-info">Edit Information</a>
                             </div>
                             @else
                             <div class="col-md-12">
-                                <a href="{{ route('information.create', ['information' => $user->id])}}" class="btn btn-info">Add Information</a>
+                                <a href="{{ route('information.create', ['locale'=>app()->getLocale(),'information' => $user->id])}}" class="btn btn-info">Add Information</a>
                             </div>
                             @endif
                         @else

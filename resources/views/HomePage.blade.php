@@ -8,14 +8,14 @@
         <i class="fab fa-laravel fa-3x" aria-hidden="true"></i>
 
         <div class="title">
-            <h4>LARAVEL</h4>
+            <h4>{{__('LARAVEL')}}</h4>
         </div>
 
         <div class="text">
-            <span>Laravel is an open-source PHP framework, which is robust and easy to understand. It follows a model-view-controller design pattern. Laravel reuses the existing components of different frameworks which helps in creating a web application. The web application thus designed is more structured and pragmatic.</span>
+            <span>{{__('Laravel is an open-source PHP framework, which is robust and easy to understand. It follows a model-view-controller design pattern. Laravel reuses the existing components of different frameworks which helps in creating a web application. The web application thus designed is more structured and pragmatic.')}}</span>
         </div>
 
-        <a href="{{route('laravel')}}">Learn More</a>
+        <a href="{{route('laravel', app()->getLocale())}}">{{__('Learn More')}}</a>
 
     </div>
 </div>

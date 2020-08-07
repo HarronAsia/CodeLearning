@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $notiRepo;
+    public function __construct(NotificationRepositoryInterface $notiRepo)
     {
+        $this->notiRepo = $notiRepo;
     }
+
 
     /**
      * Show the application dashboard.
@@ -23,11 +23,14 @@ class HomeController extends Controller
 
     public function home()
     {
-        return view('HomePage');
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        
+        return view('HomePage', compact('notifications'));
     }
 
     public function laravel()
     {
-        return view('LARAVEL.Homepage');
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('LARAVEL.Homepage', compact('notifications'));
     }
 }

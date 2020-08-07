@@ -2,7 +2,7 @@
 
 @section('content')
 <style>
-    img{
+    img {
         width: 100%;
         height: auto;
     }
@@ -15,31 +15,34 @@
 
                 <div class="modal-content">
                     <div class="modal-header bg-success">
-                        <h4 class="modal-title text-light">Add Community</h4>
+                        <h4 class="modal-title text-light">{{__('Add Community')}}</h4>
                     </div>
 
                     <div class="modal-body">
 
-                        <form action="{{ route('community.store', app()->getLocale())}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('community.store',app()->getLocale())}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <input type="text" name="title" class="form-control form-control-lg" placeholder="Enter Title" required>
+                                <input type="text" name="title" class="form-control form-control-lg" placeholder="{{__('Enter Title')}}" required>
                             </div>
 
                             <div class="form-group">
+
                                 <div>
-                                    <label for="banner">Upload Your Banner image</label>
-                                    <input type="file" class="form-control" name="banner" id="banner" required>
+                                    <a href="#" class="btn btn-block btn-info">
+                                        <label for="banner">{{__('Upload Your Banner image')}}</label>
+                                        <input type="file" class="form-control" name="banner" id="banner" style="display: none;" required>
+                                    </a>
                                 </div>
                                 <br>
-                                <img id="image_preview_container" src="{{asset('storage/blank.png')}}" alt="preview Banner" style="max-width:450px ; max-height:450px;">
+                                <img id="image_preview_container" src="{{asset('storage/default.png')}}" alt="preview Banner" style="max-width:450px ; max-height:450px;">
 
                             </div>
 
                             <div class="form-group">
-                                <input type="submit" class="btn btn-success btn-md">
-                                <input type="reset" class="btn btn-warning btn-md">
-                                <button type="button" class="btn btn-danger btn-md" onclick="window.history.back()">Cancel</button>
+                                <input type="submit" class="btn btn-success btn-md" value="{{__('Submit')}}">
+                                <input type="reset" class="btn btn-warning btn-md" value="{{__('Reset')}}">
+                                <button type="button" class="btn btn-danger btn-md" onclick="window.history.back()">{{__('Cancel')}}</button>
                             </div>
                         </form>
                     </div>

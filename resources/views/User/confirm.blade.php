@@ -122,7 +122,7 @@
         <div class="col-md-4">
             <div class="profile-img">
                 @if ($user->photo == NULL)
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
+                <img  src="{{asset('storage/user.png')}}" alt="" />
                 @else
                 <img src="{{asset('storage/'.$user->name.'/'.$user->photo)}}">
                 @endif
@@ -142,7 +142,7 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Name</label>
+                            <label>{{__('Name')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{ucfirst($user->name)}}</p>
@@ -150,7 +150,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Email</label>
+                            <label>{{__('Email')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{ucfirst($user->email)}}</p>
@@ -158,7 +158,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Phone</label>
+                            <label>{{__('Phone')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$user->number}}</p>
@@ -166,7 +166,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Date Of Birth</label>
+                            <label>{{__('Date Of Birth')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$user->dob}}</p>
@@ -174,7 +174,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Joined In:</label>
+                            <label>{{__('Joined In:')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$user->created_at}}</p>
@@ -182,7 +182,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Last Updated:</label>
+                            <label>{{__('Last Updated:')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$user->updated_at}}</p>
@@ -199,8 +199,8 @@
                 <input type="hidden" name='dob' value="{{$user->dob}}">
                 <input type="hidden" name='number' value="{{$user->number}}">
                 <input type="hidden" name='photo' value="{{$user->photo}}">
-                <button type="submit" class="btn btn-default" id="editprofilebtn">Submit</button>
-                <button onclick="window.history.back()" class="btn btn-danger">Cancel</button>
+                <button type="submit" class="btn btn-default" id="editprofilebtn">{{__('Submit')}}</button>
+                <button onclick="window.history.back()" class="btn btn-danger">{{__('Cancel')}}</button>
             </form>
         </div>
     </div>

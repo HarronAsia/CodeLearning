@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Repositories\Notification\NotificationRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 class RouteController extends Controller
 {
+    protected $notiRepo;
+    public function __construct(NotificationRepositoryInterface $notiRepo)
+    {
+        $this->notiRepo = $notiRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -84,7 +90,8 @@ class RouteController extends Controller
 
     public function route()
     {
-        return view('LARAVEL.TheBasics.Route.homepage');
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('LARAVEL.TheBasics.Route.homepage',compact('notifications'));
     }
 
 }

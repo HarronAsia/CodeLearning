@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function following()
     {
-        return $this->belongsToMany(Thread::class, 'followers', 'follower_id', 'following_id')->withTimestamps();
+        return $this->belongsToMany(Community::class, 'followers', 'follower_id', 'following_id')->withTimestamps();
     }
 }

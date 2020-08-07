@@ -97,6 +97,6 @@ class UserController extends Controller
         $user->photo = $data['photo'];
         $user->update();
 
-        return redirect()->route('profile.show', ['profile' => $user->id]);
+        return redirect()->route('profile.show', ['locale'=>$locale,'profile' => $user->id]);
     }
 }

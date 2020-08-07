@@ -55,8 +55,8 @@
     .post-slide4 .post-img:before {
         content: "";
         width: 100%;
-        height: 100%;
-        position: absolute;
+        height: auto;
+        position: relative;
         top: 0;
         left: 0;
         opacity: 0;
@@ -227,88 +227,52 @@
     }
 </style>
 <div>
-    <a href="{{route('community.create', app()->getLocale())}}" class="btn btn-info">Add Community</a>
+    <a href="{{route('community.create', app()->getLocale())}}" class="btn btn-info">{{__('Add Community')}}</a>
 </div>
 <div class="container">
-    <h3 class="h3">Latest News Post</h3>
+    <h3 class="h3">{{__('Latest News Post')}}</h3>
     <div class="row">
         <div class="col-md-12">
             <div id="news-slider4" class="owl-carousel">
+                @foreach($posts as $post)
                 <div class="post-slide4">
                     <ul class="post-info">
-                        <li><i class="fa fa-tag"></i><a href="#">java</a></li>
-                        <li><i class="fa fa-calendar"></i><a href="#">June 10, 2016</a></li>
-                        <li><i class="fa fa-comment"></i><a href="#">1</a></li>
+                        <li><i class="fa fa-calendar"></i>{{$post->created_at}}</li>
+                        <li><i class="fa fa-comment"></i>{{$post->comments->count()}}</li>
+                        <li><i class="fas fa-thumbs-up"></i>{{$post->likes->count()}}</li>
                     </ul>
                     <div class="post-img">
-                        <img src="http://bestjquery.com/tutorial/news-slider/demo31/images/img-1.jpg" alt="">
-                        <a href="#" class="read">read more</a>
+                        @if($post->image == NULL)
+                        <img src="{{asset('storage/default.png')}}" alt="" />
+                        @else
+                        <div>
+                            <img src="{{asset('storage/post/'.$post->title.'/'.$post->image)}}" alt="image" >
+                        </div>
+                        @endif
+                        <a href="{{route('community.show',['community'=>$post->community_id,'locale'=>app()->getLocale()])}}" class="read">{{__('read more')}}</a>
                     </div>
                     <div class="post-content">
                         <span class="post-author">
-                            <a href="#"><img src="http://bestjquery.com/tutorial/news-slider/demo31/images/img-5.jpg" alt=""></a>
-                        </span>
-                        <h3 class="post-title">Latest News Post</h3>
-                        <p class="post-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ducimus est, excepturi nam odit possimus? Accusantium, aut beatae commodi dolore dolores esse fugit id illum ipsam nemo nesciunt obcaecati officiis praesentium provident quasi quis quo repellat sapiente sequi temporibus voluptates.</p>
-                    </div>
-                </div>
+                            <a href="{{ route('profile.show',['locale' => app()->getLocale(),'profile'=>$post->user->id]) }}">
+                                @if ($post->user->photo == NULL)
 
-                <div class="post-slide4">
-                    <ul class="post-info">
-                        <li><i class="fa fa-tag"></i><a href="#">java</a>,<a href="#">php</a></li>
-                        <li><i class="fa fa-calendar"></i><a href="#">June 12, 2016</a></li>
-                        <li><i class="fa fa-comment"></i><a href="#">3</a></li>
-                    </ul>
-                    <div class="post-img">
-                        <img src="http://bestjquery.com/tutorial/news-slider/demo31/images/img-2.jpg" alt="">
-                        <a href="#" class="read">read more</a>
-                    </div>
-                    <div class="post-content">
-                        <span class="post-author">
-                            <a href="#"><img src="http://bestjquery.com/tutorial/news-slider/demo31/images/img-6.jpg" alt=""></a>
-                        </span>
-                        <h3 class="post-title">Latest News Post</h3>
-                        <p class="post-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ducimus est, excepturi nam odit possimus? Accusantium, aut beatae commodi dolore dolores esse fugit id illum ipsam nemo nesciunt obcaecati officiis praesentium provident quasi quis quo repellat sapiente sequi temporibus voluptates.</p>
-                    </div>
-                </div>
+                                <img src="{{asset('storage/user.png')}}" alt="" />
 
-                <div class="post-slide4">
-                    <ul class="post-info">
-                        <li><i class="fa fa-tag"></i><a href="#">java</a>,<a href="#">php</a></li>
-                        <li><i class="fa fa-calendar"></i><a href="#">June 12, 2016</a></li>
-                        <li><i class="fa fa-comment"></i><a href="#">3</a></li>
-                    </ul>
-                    <div class="post-img">
-                        <img src="http://bestjquery.com/tutorial/news-slider/demo31/images/img-3.jpg" alt="">
-                        <a href="#" class="read">read more</a>
-                    </div>
-                    <div class="post-content">
-                        <span class="post-author">
-                            <a href="#"><img src="http://bestjquery.com/tutorial/news-slider/demo31/images/img-7.jpg" alt=""></a>
-                        </span>
-                        <h3 class="post-title">Latest News Post</h3>
-                        <p class="post-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ducimus est, excepturi nam odit possimus? Accusantium, aut beatae commodi dolore dolores esse fugit id illum ipsam nemo nesciunt obcaecati officiis praesentium provident quasi quis quo repellat sapiente sequi temporibus voluptates.</p>
-                    </div>
-                </div>
+                                @else
 
-                <div class="post-slide4">
-                    <ul class="post-info">
-                        <li><i class="fa fa-tag"></i><a href="#">java</a>,<a href="#">php</a></li>
-                        <li><i class="fa fa-calendar"></i><a href="#">June 12, 2016</a></li>
-                        <li><i class="fa fa-comment"></i><a href="#">3</a></li>
-                    </ul>
-                    <div class="post-img">
-                        <img src="http://bestjquery.com/tutorial/news-slider/demo31/images/img-4.jpg" alt="">
-                        <a href="#" class="read">read more</a>
-                    </div>
-                    <div class="post-content">
-                        <span class="post-author">
-                            <a href="#"><img src="http://bestjquery.com/tutorial/news-slider/demo31/images/img-7.jpg" alt=""></a>
+                                <img src="{{asset('storage/'.$post->user->name.'/'.$post->user->photo)}}">
+
+                                @endif
+                            </a>
+
                         </span>
-                        <h3 class="post-title">Latest News Post</h3>
-                        <p class="post-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ducimus est, excepturi nam odit possimus? Accusantium, aut beatae commodi dolore dolores esse fugit id illum ipsam nemo nesciunt obcaecati officiis praesentium provident quasi quis quo repellat sapiente sequi temporibus voluptates.</p>
+                        <h3 class="post-title">{{$post->title}}</h3>
+                        <p class="post-description">{{$post->detail}}</p>
                     </div>
                 </div>
+                @endforeach
+
+
             </div>
         </div>
     </div>
@@ -316,13 +280,10 @@
 <hr>
 
 <div class="container">
-    <h3>All Communities</h3>
+    <h3>{{__('All Communities')}}</h3>
     <div class="row">
         @foreach($communities as $community)
 
-
-
-        
         @if($community->deleted_at == NULL)
         <div class="col-md-6">
             @else

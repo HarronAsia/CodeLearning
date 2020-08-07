@@ -9,5 +9,8 @@ class Follower extends Model
 {
     use Notifiable;
 
-    
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

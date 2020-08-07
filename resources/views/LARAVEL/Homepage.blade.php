@@ -38,6 +38,26 @@
     </div>
 </div>
 
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="background-color: black;color:red;">
+
+    <div class="box-part text-center">
+        <i class="fas fa-user-secret fa-6x" aria-hidden="true"></i>
+
+        <div class="title">
+            <h4>{{__('Cheat Sheet')}}</h4>
+        </div>
+
+        <div class="text">
+            <span>{{__('Want to make a website easy without any sweat, Feel free to join in this grand new cheat Sheet. What are you waiting now !! Its absolutely free for anyone because all you need to do is just create an account only.')}}</span>
+        </div>
+        @guest
+        <a href="{{route('login', app()->getLocale())}}">{{__('Join in')}}</a>
+        @else
+        <a href="{{route('cheat.index', app()->getLocale())}}">{{__('Join in')}}</a>
+        @endif
+    </div>
+</div>
+
 </div>
 
 @endsection

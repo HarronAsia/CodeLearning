@@ -60,6 +60,12 @@ Route::group([
     Route::resource('community', 'CommunityController');
 
     Route::get('/community/{community}/restore', 'CommunityController@restore')->name('community.restore');
+
+    //---------------------Follow-------------------------//
+    Route::get('/community/{community}/follow/{user}', 'FollowerController@follow')->name('community.follow');
+    Route::get('/community/{community}/unfollow/{user}', 'FollowerController@unfollow')->name('community.unfollow');
+    //---------------------Follow-------------------------//
+
     //---------------------Community-------------------------//
 
     //---------------------Post-------------------------//
@@ -70,12 +76,29 @@ Route::group([
     Route::get('/{post}/like', 'LikeController@like')->name('post.like');
     Route::get('/{post}/unlike', 'LikeController@unlike')->name('post.unlike');
     //---------------------Like-------------------------//
-    //---------------------Post-------------------------//
 
-    //---------------------Post-------------------------//
+    //---------------------Comment-------------------------//
     Route::post('/comment/{post}/store', 'CommentController@store')->name('comment.store');
-    Route::post('/comment/{comment}/edit', 'CommentController@edit')->name('comment.edit');
+    Route::get('/comment/{comment}/edit', 'CommentController@edit')->name('comment.edit');
+    Route::post('/comment/{comment}/update', 'CommentController@update')->name('comment.update');
+    Route::get('/comment/{comment}/delete', 'CommentController@destroy')->name('comment.destroy');
     Route::get('/comment/{comment}/restore', 'CommentController@restore')->name('comment.restore');
-    //---------------------Post-------------------------//
+    //---------------------Comment-------------------------//
 
+    //---------------------Post-------------------------//
+    Route::group([
+        'prefix' => 'Notification',
+    ], function () {
+        Route::get('/{id}/mark-as-read', 'NotificationController@readAt')->name('notification.read');
+
+        Route::get('/mark-all-as-read', 'NotificationController@readAll')->name('notification.read.all');
+
+        Route::get('/notifications/all', 'NotificationController@showAllNotifications')->name('notifications.all');
+    });
+
+    Route::group([
+        'prefix' => 'cheat-sheet',
+    ], function () {
+        Route::get('/homepage', 'CheatController@index')->name('cheat.index');
+    });
 });

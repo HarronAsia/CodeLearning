@@ -51,7 +51,7 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$locale)
     {
 
         
@@ -72,7 +72,7 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        return redirect()->route('profile.show', [$data['user_id']]);
+        return redirect()->route('profile.show', ['locale'=>$locale,'profile'=>$data['user_id']]);
     }
 
     /**
@@ -94,13 +94,15 @@ class ProfileController extends Controller
      */
     public function edit($locale,$information)
     {
-
+        
         $profile = $this->profileRepo->getProfile($information);
+        
         if (Auth::user()->id != $profile->user_id) {
-            return redirect()->route('profile.show', ['information' => $information]);
+            return redirect()->route('profile.show', ['locale'=>$locale,'information' => $information]);
         } else {
             $user = $this->userRepo->showUser($information);
-            return view('User.Information.edit', compact('profile', 'user'));
+            
+            return view('User.Information.edit', compact('profile', 'user'))->with('locale',$locale);
         }
     }
 
@@ -137,7 +139,7 @@ class ProfileController extends Controller
 
         $profile->update();
 
-        return redirect()->route('profile.show', [$data['user_id']]);
+        return redirect()->route('profile.show', ['locale'=>$locale,'profile'=>$data['user_id']]);
     }
 
     /**

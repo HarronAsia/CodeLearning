@@ -20,7 +20,7 @@
 
     .profile-img img {
         width: 70%;
-        height: 100%;
+        height: auto;
     }
 
     .profile-img .file {
@@ -119,16 +119,16 @@
 </style>
 <div class="container emp-profile">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="profile-img">
                 @if ($user->photo == NULL)
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
+                <img  src="{{asset('storage/user.png')}}" alt="" />
                 @else
-                <img src="{{asset('storage/'.$user->name.'/'.$user->photo)}}">
+                <img src="{{asset('storage/'.$user->name.'/'.$user->photo)}}" class="img-thumbnail" style="width: 200px; height:200px" >
                 @endif
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
             <div class="profile-head">
                 <h5>
                     {{ucfirst($user->name)}}
@@ -138,10 +138,10 @@
                 </h6>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{__('About')}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Information</a>
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">{{__('Information')}}</a>
                     </li>
                 </ul>
             </div>
@@ -151,16 +151,16 @@
     <div class="row">
         <div class="col-md-4">
             <div class="profile-work">
-                <p>Social Link</p>
-                <a href="{{$profile->google_plus_link?? ''}}">Google Plus</a><br>
-                <a href="{{$profile->aim_link?? ''}}">AIM</a><br>
-                <a href="{{$profile->window_live_link?? ''}}">Window LIve</a> <br>
-                <a href="{{$profile->yahoo_link?? ''}}">Yahoo</a><br>
-                <a href="{{$profile->icq_link?? ''}}">ICQ</a><br>
-                <a href="{{$profile->skype_link?? ''}}">Skype</a><br>
-                <a href="{{$profile->google_talk_link?? ''}}">Google Talk</a><br>
-                <a href="{{$profile->facebook_link?? ''}}">Facebook</a><br>
-                <a href="{{$profile->twitter_link?? ''}}">Twitter</a><br>
+                <p>{{__('Social Link')}}</p>
+                <a href="{{$profile->google_plus_link?? ''}}">{{__('Google Plus')}}</a><br>
+                <a href="{{$profile->aim_link?? ''}}">{{__('AIM')}}</a><br>
+                <a href="{{$profile->window_live_link?? ''}}">{{__('Window LIve')}}</a> <br>
+                <a href="{{$profile->yahoo_link?? ''}}">{{__('Yahoo')}}</a><br>
+                <a href="{{$profile->icq_link?? ''}}">{{__('ICQ')}}</a><br>
+                <a href="{{$profile->skype_link?? ''}}">{{__('Skype')}}</a><br>
+                <a href="{{$profile->google_talk_link?? ''}}">{{__('Google Talk')}}</a><br>
+                <a href="{{$profile->facebook_link?? ''}}">{{__('Facebook')}}</a><br>
+                <a href="{{$profile->twitter_link?? ''}}">{{__('Twitter')}}</a><br>
             </div>
         </div>
         <div class="col-md-8">
@@ -168,7 +168,7 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Name</label>
+                            <label>{{__('Name')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{ucfirst($user->name)}}</p>
@@ -176,7 +176,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Email</label>
+                            <label>{{__('Email')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{ucfirst($user->email)}}</p>
@@ -184,7 +184,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Phone</label>
+                            <label>{{__('Phone')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$user->number}}</p>
@@ -192,7 +192,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Date Of Birth</label>
+                            <label>{{__('Date Of Birth')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$user->dob}}</p>
@@ -200,7 +200,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Profession</label>
+                            <label>{{__('Profession')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{ucfirst($profile->job?? '')}}</p>
@@ -208,7 +208,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Joined In:</label>
+                            <label>{{__('Joined In:')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$user->created_at}}</p>
@@ -216,7 +216,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Last Updated:</label>
+                            <label>{{__('Last Updated:')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$user->updated_at}}</p>
@@ -225,7 +225,7 @@
                     @if(Auth::user()->id == $user->id)
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{ route('profile.edit', ['locale'=>app()->getLocale(),'profile' => $user->id])}}" class="btn btn-info">Edit Profile</a>
+                            <a href="{{ route('profile.edit', ['locale'=>app()->getLocale(),'profile' => $user->id])}}" class="btn btn-info">{{__('Edit Profile')}}</a>
 
                         </div>
                     </div>
@@ -236,7 +236,7 @@
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Location</label>
+                            <label>{{__('Location')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{ucfirst($profile->place?? '')}}</p>
@@ -244,7 +244,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Personal ID</label>
+                            <label>{{__('Personal ID')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$profile->personal_id?? ''}}</p>
@@ -252,7 +252,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Issued Date</label>
+                            <label>{{__('Issued Date')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$profile->issued_date?? ''}}</p>
@@ -260,7 +260,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Issued By</label>
+                            <label>{{__('Issued By')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$profile->issued_by?? ''}}</p>
@@ -268,7 +268,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Supervisor name</label>
+                            <label>{{__('Supervisor name')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$profile->supervisor_name?? ''}}</p>
@@ -276,7 +276,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Supervisor Date Of Birth</label>
+                            <label>{{__('Supervisor Date Of Birth')}}</label>
                         </div>
                         <div class="col-md-6">
                             <p>{{$profile->supervisor_dob?? ''}}</p>
@@ -284,7 +284,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Your Bio</label><br />
+                            <label>{{__('Your Bio')}}</label><br />
                             <p>{{$profile->detail?? ''}}</p>
                         </div>
                     </div>
@@ -292,11 +292,11 @@
                         @if(Auth::user()->id == $user->id)
                             @if($profile->user_id?? '' == Auth::user()->id)
                             <div class="col-md-12">
-                                <a href="{{ route('information.edit', ['locale'=>app()->getLocale(),'information' => $user->id])}}" class="btn btn-info">Edit Information</a>
+                                <a href="{{ route('information.edit', ['locale'=>app()->getLocale(),'information' => $user->id])}}" class="btn btn-info">{{__('Edit Information')}}</a>
                             </div>
                             @else
                             <div class="col-md-12">
-                                <a href="{{ route('information.create', ['locale'=>app()->getLocale(),'information' => $user->id])}}" class="btn btn-info">Add Information</a>
+                                <a href="{{ route('information.create', ['locale'=>app()->getLocale(),'information' => $user->id])}}" class="btn btn-info">{{__('Add Information')}}</a>
                             </div>
                             @endif
                         @else

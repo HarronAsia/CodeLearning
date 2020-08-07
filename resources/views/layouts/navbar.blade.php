@@ -26,20 +26,22 @@
                 </a>
             </li>
 
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('login', ['locale' => app()->getLocale()]) }}">
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user"></i>
-                    {{ __('Login')}}
-                    <span class="sr-only">(current)</span>
+                    <span></span>
+                    </i>
+                    {{ __('Account')}}
                 </a>
-            </li>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('register', app()->getLocale()) }}">
-                    <i class="fa fa-user"></i>
-                    {{ __('Register')}}
-                    <span class="sr-only">(current)</span>
-                </a>
+                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'en'])}}">
+                        <i class="fas fa-sign-in-alt"></i> &ensp; {{ __('Login')}}
+                    </a>
+                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'jp'])}}">
+                        <i class="far fa-registered"></i> &ensp; {{ __('Register')}}
+                    </a>
+                </div>
             </li>
 
             <li class="nav-item dropdown ">
@@ -49,16 +51,16 @@
                     </i>
                     {{ __('Language')}}
                 </a>
-                @if(Route::currentRouteName('profile'))
+
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'en', 'profile' => Auth::user()->id,'community'=>1])}}">
-                        <img src="{{asset('storage/flag/england.png')}}" alt="England Flag" style="width: 35px;"> &ensp; English
+                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'en'])}}">
+                        <img src="{{asset('storage/flag/england.png')}}" alt="England Flag" style="width: 35px;"> &ensp; {{__('English')}}
                     </a>
-                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'jp', 'profile' => Auth::user()->id,'community'=>1])}}">
-                        <img src="{{asset('storage/flag/japan.png')}}" alt="Japanese Flag" style="width: 35px;"> &ensp; Japan
+                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'jp'])}}">
+                        <img src="{{asset('storage/flag/japan.png')}}" alt="Japanese Flag" style="width: 35px;"> &ensp; {{__('Japan')}}
                     </a>
-                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'vi', 'profile' => Auth::user()->id,'community'=>1])}}">
-                        <img src="{{asset('storage/flag/vietnam.png')}}" alt="Vietnamese Flag" style="width: 35px;"> &ensp; VietNam
+                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'vi'])}}">
+                        <img src="{{asset('storage/flag/vietnam.png')}}" alt="Vietnamese Flag" style="width: 35px;"> &ensp; {{__('VietNam')}}
                     </a>
                 </div>
             </li>
@@ -92,16 +94,20 @@
             <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                     <i class="fa fa-bell">
-                        <span class="badge badge-info">11</span>
+                        <span class="badge badge-info">{{$notifications->count()}}</span>
                     </i>
-                    Notifications
+                    {{__('Notifications')}}
                 </a>
                 <div class="dropdown-menu">
-                    <p class="dropdown-item">1</p>
+                    @foreach($notifications->take(4) as $noti)
+                    <p class="dropdown-item">{{json_decode(json_encode($noti->data))->data}}</p>
+
                     <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                    <a href="#">
-                        <button class="dropdown-item btn-info">All Unread Messages</button>
+                     @endforeach
+                    <a href="{{route('notifications.all',['locale'=>app()->getLocale()])}}">
+                        <button class="dropdown-item btn-info">{{__('All Unread Messages')}}</button>
                     </a>
+                   
                 </div>
             </li>
 
@@ -118,18 +124,18 @@
                 </a>
                 <div class="dropdown-menu">
                     <a href="{{ route('profile.show',['locale' => app()->getLocale(),'profile'=>Auth::user()->id]) }}">
-                        <p class="dropdown-item"><i class="fas fa-user-tie"></i>&ensp;Profile</p>
+                        <p class="dropdown-item"><i class="fas fa-user-tie"></i>&ensp;{{__('Profile')}}</p>
                     </a>
 
-                    <a class="dropdown-item" href="{{ route('logout', app()->getLocale()) }}" onclick="event.preventDefault();
+                    <a class="dropdown-item" href="{{ route('logout',['locale'=>app()->getLocale()]) }}" onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
-                        <i class="fa fa-user">
+                        <i class="fas fa-sign-out-alt">
                             <span></span>
                         </i>
                         {{ __('Logout') }}
                     </a>
 
-                    <form id="logout-form" action="{{ route('logout',app()->getLocale()) }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('logout',['locale'=>app()->getLocale()]) }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                 </div>
@@ -145,21 +151,21 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'en', 'profile' => Auth::user()->id])}}">
-                        <img src="{{asset('storage/flag/england.png')}}" alt="England Flag" style="width: 35px;"> &ensp; English
+                        <img src="{{asset('storage/flag/england.png')}}" alt="England Flag" style="width: 35px;"> &ensp; {{__('English')}}
                     </a>
                     <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'jp', 'profile' => Auth::user()->id])}}">
-                        <img src="{{asset('storage/flag/japan.png')}}" alt="Japanese Flag" style="width: 35px;"> &ensp; Japan
+                        <img src="{{asset('storage/flag/japan.png')}}" alt="Japanese Flag" style="width: 35px;"> &ensp; {{__('Japan')}}
                     </a>
                     <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'vi', 'profile' => Auth::user()->id])}}">
-                        <img src="{{asset('storage/flag/vietnam.png')}}" alt="Vietnamese Flag" style="width: 35px;"> &ensp; VietNam
+                        <img src="{{asset('storage/flag/vietnam.png')}}" alt="Vietnamese Flag" style="width: 35px;"> &ensp; {{__('VietNam')}}
                     </a>
                 </div>
             </li>
         </ul>
 
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="text" placeholder="{{__('Search')}}" aria-label="{{__('Search')}}">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{__('Search')}}</button>
         </form>
 
 

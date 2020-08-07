@@ -3,31 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Community;
 use App\Http\Requests\StoreCommunity;
 use App\Repositories\Community\CommunityRepositoryInterface;
 use App\Repositories\Post\PostRepositoryInterface;
+use App\Repositories\Follower\FollowerRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 
 class CommunityController extends Controller
 {
 
     protected $communityRepo;
     protected $postRepo;
-
-    public function __construct(CommunityRepositoryInterface $communityRepo, PostRepositoryInterface $postRepo)
+    protected $followRepo;
+    protected $notiRepo;
+    public function __construct(CommunityRepositoryInterface $communityRepo, PostRepositoryInterface $postRepo, FollowerRepositoryInterface $followRepo, NotificationRepositoryInterface $notiRepo)
     {
         $this->communityRepo = $communityRepo;
         $this->postRepo = $postRepo;
+        $this->followRepo = $followRepo;
+        $this->notiRepo = $notiRepo;
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($locale)
     {
         $communities = $this->communityRepo->showall();
-        return view('Community.community_list', compact('communities'));
+        $posts = $this->postRepo->showall();
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('Community.community_list', compact('communities', 'posts','notifications'))->with('locale',$locale);
     }
 
     /**
@@ -37,7 +46,8 @@ class CommunityController extends Controller
      */
     public function create()
     {
-        return view('Community.add');
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('Community.add',compact('notifications'));
     }
 
     /**
@@ -46,7 +56,7 @@ class CommunityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCommunity $request)
+    public function store(StoreCommunity $request,$locale)
     {
         $data = $request->validated();
 
@@ -66,9 +76,8 @@ class CommunityController extends Controller
         $data['banner'] = $filename;
 
         $community->banner = $data['banner'];
-
         $community->save();
-        return redirect()->route('community.index');
+        return redirect()->route('community.index',['locale'=>$locale]);
     }
 
     /**
@@ -77,12 +86,14 @@ class CommunityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($locale,$community)
+    public function show($locale, $community)
     {
         $community = $this->communityRepo->showcommunity($community);
-        $posts = $this->postRepo->showall($community->id);
-        
-        return view('Community.homepage', compact('community','posts'));
+        $posts = $this->postRepo->showallonCommunity($community->id);
+        $follower = $this->followRepo->showfollowerCommunity(Auth::user()->id, $community->id);
+        $followers = $this->followRepo->showfollowers($community->id);
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('Community.homepage', compact('locale', 'community', 'posts', 'follower', 'followers','notifications'));
     }
 
     /**
@@ -91,11 +102,11 @@ class CommunityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($locale,$community)
+    public function edit($locale, $community)
     {
         $community = $this->communityRepo->showcommunity($community);
-        
-        return view('Community.edit', compact('community'));
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('Community.edit', compact('community','notifications'));
     }
 
     /**
@@ -105,11 +116,11 @@ class CommunityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCommunity $request)
+    public function update(StoreCommunity $request,$locale,$community)
     {
         $data = $request->validated();
 
-        $community = $this->communityRepo->showcommunity($request['id']);
+        $community = $this->communityRepo->showcommunity($community);
 
         $community->title = $data['title'];
 
@@ -140,7 +151,7 @@ class CommunityController extends Controller
         }
         $community->banner = $filename;
         $community->update();
-        return redirect()->route('community.index');
+        return redirect()->route('community.index',['locale'=>$locale]);
     }
 
     /**
@@ -149,15 +160,14 @@ class CommunityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($locale,$community)
+    public function destroy($locale, $community)
     {
-        
+
         $this->communityRepo->deletecommunity($community);
         return redirect()->back();
-        
     }
 
-    public function restore($locale,$community)
+    public function restore($locale, $community)
     {
         $this->communityRepo->restorecommunity($community);
 

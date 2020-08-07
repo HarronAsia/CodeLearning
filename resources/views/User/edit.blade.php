@@ -117,7 +117,7 @@
         color: #0062cc;
     }
 
-    img{
+    img {
         width: 100%;
         height: auto;
     }
@@ -134,37 +134,40 @@
 
                         <div class="form-group">
                             @if ($user->photo == NULL)
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" style="width: 300px; height: 300px;"/>
+                            <img src="{{asset('storage/user.png')}}" alt="" style="width: 300px; height: 300px;" />
                             @else
                             <img src="{{asset('storage/'.$user->name.'/'.$user->photo)}}" alt="Image" style="width: 300px; height: 300px;">
                             @endif
                             &ensp;<i class="fa fa-arrow-right" style="font-size:48px;"></i>&ensp;
-                            <img id="image_preview_container" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="preview image" style="width: 300px ; height:300px;">
-                            <div>
-                                <i class="fas fa-image"></i>&ensp;<label for="photo">Your Image</label>
-                                <input type="file" class="form-control" name="photo" id="photo" value="{{ $user->photo}}">
+                            <img id="image_preview_container" src="{{asset('storage/default.png')}}" alt="preview image" style="width: 300px ; height:300px;">
+                            <div style="padding-top: 10px;">
+                                <i class="fas fa-image"></i>&ensp;
+                                <a href="#" class="btn btn-block btn-info" >
+                                    <label for="photo">{{__('Your Image')}}</label>
+                                    <input type="file" class="form-control" name="photo" id="photo" value="{{ $user->photo}}" style="display: none;">
+                                </a>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <i class="fas fa-user"></i> &ensp;<label for="name">Your name</label>
+                            <i class="fas fa-user"></i> &ensp;<label for="name">{{__('Your name')}}</label>
                             <input class="form-control" name="name" placeholder="Enter Your Name" value="{{ $user->name}}">
                         </div>
 
                         <div class="form-group">
-                            <i class="fas fa-calendar"></i>&ensp;<label for="dob">Your Birthday</label>
+                            <i class="fas fa-calendar"></i>&ensp;<label for="dob">{{__('Your Birthday')}}</label>
                             <input type="date" class="form-control" name="dob" placeholder="Enter Your DOB" value="{{ $user->dob }}">
                         </div>
 
                         <div class="form-group">
-                            <i class="fas fa-phone"></i>&ensp;<label for="number">Your Phone Number</label>
+                            <i class="fas fa-phone"></i>&ensp;<label for="number">{{__('Your Phone Number')}}</label>
                             <input type="tel" class="form-control" name="number" placeholder="Enter Your Phone Number" value="{{ $user->number }}">
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">Submit</button>
-                            <button type="reset" class="btn btn-warning" value="Reset">Reset</button>
-                            <a href="{{ url()->previous() }}" class="btn btn-danger">Cancel</a>
+                            <button type="submit" class="btn btn-success">{{__('Submit')}}</button>
+                            <button type="reset" class="btn btn-warning">{{__('Reset')}}</button>
+                            <a href="{{ url()->previous() }}" class="btn btn-danger">{{__('Cancel')}}</a>
                         </div>
 
                     </form>

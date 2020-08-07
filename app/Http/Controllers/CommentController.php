@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Repositories\Post\PostRepositoryInterface;
 use App\Repositories\Comment\CommentRepositoryInterface;
-
+use App\Repositories\Notification\NotificationRepositoryInterface;
 
 class CommentController extends Controller
 {
@@ -20,15 +20,15 @@ class CommentController extends Controller
     protected $profileRepo;
     protected $notiRepo;
 
-
     public function __construct(
         PostRepositoryInterface $postRepo,
-        CommentRepositoryInterface $commRepo
-
+        CommentRepositoryInterface $commRepo,
+        NotificationRepositoryInterface $notiRepo
     ) {
         $this->middleware('auth');
         $this->postRepo = $postRepo;
         $this->commRepo = $commRepo;
+        $this->notiRepo = $notiRepo;
     }
     /**
      * Display a listing of the resource.
@@ -55,10 +55,8 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreComment $request,$post)
+    public function store(StoreComment $request, $locale, $post)
     {
-
-
         $data = $request->validated();
 
         $post = $this->postRepo->showpost($post);
@@ -107,11 +105,11 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit( $comment)
+    public function edit($locale, $comment)
     {
         $comment = $this->commRepo->showComment($comment);
-
-        return view('Comment.edit', compact('comment'));
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('Comment.edit', compact('comment','notifications'));
     }
 
     /**
@@ -121,7 +119,7 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreComment $request,  $commentid)
+    public function update(StoreComment $request, $locale, $commentid)
     {
 
         $data = $request->validated();
@@ -175,14 +173,14 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($postid, $commentid)
+    public function destroy($locale, $commentid)
     {
 
         $this->commRepo->deletecomment($commentid);
         return redirect()->back();
     }
 
-    public function restore($postid, $commentid)
+    public function restore($locale, $commentid)
     {
 
         $this->commRepo->restorecomment($commentid);

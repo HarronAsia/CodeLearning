@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+use App\Repositories\Notification\NotificationRepositoryInterface;
 class LaravelController extends Controller
 {
+     protected $notiRepo;
+    public function __construct(NotificationRepositoryInterface $notiRepo)
+    {
+        $this->notiRepo = $notiRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -83,12 +90,14 @@ class LaravelController extends Controller
     }
 
     public function installation()
-    {
-        return view('LARAVEL.GettingStarted.Installation');
+    { 
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('LARAVEL.GettingStarted.Installation',compact('notifications'));
     }
 
     public function basic()
     {
-        return view('LARAVEL.TheBasics.homepage');
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('LARAVEL.TheBasics.homepage',compact('notifications'));
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.Community.app')
 
 @section('content')
 <style>
@@ -326,21 +326,28 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <div class="h6 text-muted">Followers</div>
-                        <div class="h5">5.2342</div>
+                        <div class="h6 text-muted">{{__('Followers')}}</div>
+                        <div class="h5">{{$followers->count()}}</div>
                     </li>
                     <li class="list-group-item">
-                        <div class="h6 text-muted">Following</div>
-                        <div class="h5">6758</div>
+                        <div class="h6 text-muted">{{__('Posts')}}</div>
+                        <div class="h5">{{$community->posts->count()}}</div>
                     </li>
                     @guest
                     <li class="list-group-item">
-                        <a href="/login" class="btn btn-info">Get Notification</a>
+                        <a href="/login" class="btn btn-info">{{__('Get Notification')}}</a>
+                    </li>
+                    @else
+                    @if ($follower->follower_id?? '' == Auth::user()->id)
+                    <li class="list-group-item">
+                        <a href="{{route('community.unfollow',['locale'=>app()->getLocale(),'community'=>$community->id,'user'=>Auth::user()->id])}}" class="btn btn-info"><i class="fa fa-bell-slash-o"></i>&ensp;{{__('Unfollow')}}</a>
                     </li>
                     @else
                     <li class="list-group-item">
-                        <a href="#" class="btn btn-info">Get Notification</a>
+                        <a href="{{route('community.follow',['locale'=>app()->getLocale(),'community'=>$community->id,'user'=>Auth::user()->id])}}" class="btn btn-info"><i class="fa fa-bell"></i>&ensp;{{__('Follow')}}</a>
                     </li>
+                    @endif
+
                     @endif
                 </ul>
             </div>
@@ -359,11 +366,10 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Make
-                                a publication</a>
+                            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">{{__('Make a publication')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="image" aria-selected="false" href="#image">Images</a>
+                            <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="image" aria-selected="false" href="#image">{{__('Images')}}</a>
                         </li>
                     </ul>
                 </div>
@@ -375,13 +381,13 @@
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id??''}}">
                                 <input type="hidden" name="community_id" value="{{$community->id}}">
                                 <div class="form-group has-feedback{{ $errors->has('title') ? ' has-error' : '' }}">
-                                    <label class=" sr-only" for="title">Title</label>
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="What is the Topic?" />
+                                    <label class=" sr-only" for="title">{{__('Title')}}</label>
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="{{__('What is the Topic?')}}" />
                                 </div>
 
                                 <div class="form-group has-feedback{{ $errors->has('detail') ? ' has-error' : '' }}">
-                                    <label class=" sr-only" for="detail">Detail</label>
-                                    <textarea class="form-control" id="detail" name="detail" rows="3" placeholder="What are you thinking?"></textarea>
+                                    <label class=" sr-only" for="detail">{{__('Detail')}}</label>
+                                    <textarea class="form-control" id="detail" name="detail" rows="3" placeholder="{{__('What are you thinking?')}}"></textarea>
                                 </div>
 
                             </div>
@@ -389,17 +395,17 @@
                                 <div class="form-group has-feedback{{ $errors->has('image') ? ' has-error' : '' }}">
 
                                     <div class="custom-file">
-                                        <label class="custom-file-label" for="image">Upload image</label>
+                                        <label class="custom-file-label" for="image">{{__('Upload image')}}</label>
                                         <input type="file" class="custom-file-input" id="image" name="image">
                                     </div>
                                 </div>
 
-                                <div class="py-4"> <img id="image_preview_container" src="{{asset('storage/blank.png')}}" alt="preview Banner" style="max-width:400px ; max-height:400px;"></div>
+                                <div class="py-4"> <img id="image_preview_container" src="{{asset('storage/default.png')}}" alt="preview Banner" style="max-width:400px ; max-height:400px;"></div>
                             </div>
                         </div>
                         <div class="btn-toolbar justify-content-between">
                             <div class="btn-group">
-                                <button type="submit" name="post_form" class="btn btn-primary">share</button>
+                                <button type="submit" name="post_form" class="btn btn-primary">{{__('Share')}}</button>
                             </div>
                             <div class="btn-group">
 
@@ -407,9 +413,9 @@
                             <div class="btn-group has-feedback{{ $errors->has('status') ? ' has-error' : '' }}">
 
                                 <select class="form-control" name="status" id="status">
-                                    <option value="Public">Public</option>
-                                    <option value="Friends">Friends</option>
-                                    <option value="Private">Private</option>
+                                    <option value="Public">{{__('Public')}}</option>
+                                    <option value="Friends">{{__('Friends')}}</option>
+                                    <option value="Private">{{__('Private')}}</option>
                                 </select>
 
                             </div>
@@ -436,12 +442,13 @@
                 @else
                 <div class="card gedf-card" style="opacity: 0.3;">
                     @endif
+
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="mr-2">
                                     @if ($post->user->photo == NULL)
-                                    <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" style="max-width: 100px;" />
+                                    <img class="rounded-circle" src="{{asset('storage/user.png')}}" alt="" style="max-width: 100px;" />
                                     @else
                                     <img class="rounded-circle" src="{{asset('storage/'.$post->user->name.'/'.$post->user->photo)}}" style="max-width: 100px;">
                                     @endif
@@ -457,26 +464,26 @@
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                        <div class="h6 dropdown-header">Configuration</div>
+                                        <div class="h6 dropdown-header">{{__('Configuration')}}</div>
                                         @if($post->deleted_at == NULL)
                                         <a class="dropdown-item" href="{{route('post.edit',[app()->getLocale(),'post'=>$post->id])}}">
-                                            <i class="fas fa-edit" style="font-size:25px; color:blue;"></i> Edit
+                                            <i class="fas fa-edit" style="font-size:25px; color:blue;"></i> {{__('Edit')}}
                                         </a>
                                         <a class="dropdown-item">
                                             <form action="{{route('post.destroy',[app()->getLocale(),'post'=>$post->id] )}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn">
-                                                    <i class="fas fa-trash" style="font-size:25px; color:red;"></i> Delete
+                                                    <i class="fas fa-trash" style="font-size:25px; color:red;"></i> {{__('Delete')}}
                                                 </button>
                                             </form>
                                         </a>
                                         <a class="dropdown-item" href="#">
-                                            <i class="fas fa-trash" style="font-size:25px; color:grey;"></i>Report
+                                            <i class="fas fa-trash" style="font-size:25px; color:grey;"></i>{{__('Report')}}
                                         </a>
                                         @else
                                         <a class="dropdown-item" href="{{route('post.restore',[app()->getLocale(),'post'=>$post->id])}}">
-                                            <i class="fas fa-trash-restore" style="font-size:25px; color:blue; "></i> Restore
+                                            <i class="fas fa-trash-restore" style="font-size:25px; color:blue; "></i> {{__('Restore')}}
                                         </a>
                                         @endif
 
@@ -495,14 +502,6 @@
                         <p class="card-text">
                             {{$post->detail}}
                         </p>
-                        <div>
-                            <span class="badge badge-primary">JavaScript</span>
-                            <span class="badge badge-primary">Android</span>
-                            <span class="badge badge-primary">PHP</span>
-                            <span class="badge badge-primary">Node.js</span>
-                            <span class="badge badge-primary">Ruby</span>
-                            <span class="badge badge-primary">Paython</span>
-                        </div>
                         <br>
                         @if($post->image == NULL)
 
@@ -515,12 +514,12 @@
                     <div class="card-footer">
 
                         @if($post->like->user_id??'' == Auth::user()->id)
-                        <a href="{{route('post.unlike',[app()->getLocale(),'post' => $post->id])}}" class="card-link"><i class="fas fa-thumbs-up"></i></i> Like&ensp;{{$post->likes->count()}}</a>
+                        <a href="{{route('post.unlike',[app()->getLocale(),'post' => $post->id])}}" class="card-link"><i class="fas fa-thumbs-up"></i></i> {{__('Like')}}&ensp;{{$post->likes->count()}}</a>
                         @else
-                        <a href="{{route('post.like',[app()->getLocale(),'post' => $post->id])}}" class="card-link"><i class="far fa-thumbs-up"></i> Like&ensp;{{$post->likes->count()}}</a>
+                        <a href="{{route('post.like',[app()->getLocale(),'post' => $post->id])}}" class="card-link"><i class="far fa-thumbs-up"></i> {{__('Like')}}&ensp;{{$post->likes->count()}}</a>
                         @endif
-                        <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                        <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                        <a href="#" class="card-link"><i class="fa fa-comment"></i> {{__('Comment')}} &ensp;{{$post->comments->count()}}</a>
+                        <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> {{__('Share')}}</a>
 
                         @guest
 
@@ -529,26 +528,28 @@
                         <div class="row" style="padding-top: 10px;">
                             <div class="col-12">
 
-                                <form action="{{route('comment.store',[app()->getLocale(),'post'=>$post->id])}}" method="POST" enctype="multipart/form-data">
+                                <form action="{{route('comment.store',['locale'=>app()->getLocale(),'post'=>$post->id])}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
-                                    <div class="input-group ">
-                                        <span class="input-group-addon ">
-                                            <label class="btn btn-file camera ">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <label class="btn btn-file camera">
                                                 <i class="fa fa-camera" style="margin-top:10px; color:white;"></i>
-                                                <input class="form-control " type="file" name="comment_image" style="display: none;" />
+                                                <input class="form-control " type="file" id="comment_image" name="comment_image" style="display: none;" />
                                             </label>
 
                                         </span>
-                                        <input class="form-control" name="comment_detail" placeholder="Write your comment here" required>
+                                        <input class="form-control" name="comment_detail" placeholder="{{__('Write your comment here')}}" required>
                                         <span class="input-group-addon ">
                                             <button type="submit" class="btn  comment-btn " style="height: 100%;">
                                                 <i class="fas fa-paper-plane"></i>
                                             </button>
                                         </span>
                                     </div>
-
+                                    <div style="padding-top:10px;">
+                                        <img id="image_preview_container2" src="{{asset('storage/default.png')}}" alt="preview Banner" style="max-width:200px ; max-height:200px;">
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -563,9 +564,8 @@
                                     <div class="comment-box">
 
                                         @if ($post->user->photo == NULL)
-                                        <div>
 
-                                        </div>
+                                        <img src="{{asset('storage/user.png')}}" alt="Image" class="commenter-image" alt="commenter_image" width="45">
                                         @else
                                         <img src="{{asset('storage/'.$comment->user->name.'/'.$comment->user->photo)}}" alt="Image" class="commenter-image" alt="commenter_image" width="45">
                                         @endif
@@ -575,6 +575,7 @@
                                                 <span class="comment">{{$comment->comment_detail}}</span>
                                             </div>
                                             <div>
+
                                                 @if($comment->comment_image == NULL)
                                                 <div></div>
                                                 @else
@@ -582,7 +583,7 @@
                                                 @endif
                                             </div>
                                             <div class="comment-footer">
-                                                <span class="comment-likes">55 <a href="" class="comment-action active"> <i class="far fa-heart"></i></a></span> <span class="comment-reply">66 <a href="" class="comment-action">Replies</a></span>
+                                                <span class="comment-likes">55 <a href="" class="comment-action active"> <i class="far fa-heart"></i></a></span> <span class="comment-reply">66 <a href="" class="comment-action">{{__('Replies')}}</a></span>
                                             </div>
                                         </div>
                                     </div>
@@ -596,26 +597,20 @@
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                        <div class="h6 dropdown-header">Configuration</div>
+                                        <div class="h6 dropdown-header">{{__('Configuration')}}</div>
                                         @if($comment->deleted_at == NULL)
-                                        <a class="dropdown-item" href="{{route('comment.edit',[app()->getLocale(),'comment'=>$post->id])}}">
-                                            <i class="fas fa-edit" style="font-size:25px; color:blue;"></i> Edit
+                                        <a class="dropdown-item" href="{{route('comment.edit',[app()->getLocale(),'comment'=>$comment->id])}}">
+                                            <i class="fas fa-edit" style="font-size:25px; color:blue;"></i> {{__('Edit')}}
                                         </a>
-                                        <a class="dropdown-item">
-                                            <form action="{{route('post.destroy',['locale'=>app()->getLocale(),'post'=>$post->id])}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn">
-                                                    <i class="fas fa-trash" style="font-size:25px; color:red;"></i> Delete
-                                                </button>
-                                            </form>
+                                        <a class="dropdown-item" href="{{route('comment.destroy',['locale'=>app()->getLocale(),'comment'=>$comment->id])}}">
+                                            <i class="fas fa-trash" style="font-size:25px; color:red;"></i> {{__('Delete')}}
                                         </a>
                                         <a class="dropdown-item" href="#">
-                                            <i class="fas fa-trash" style="font-size:25px; color:grey;"></i>Report
+                                            <i class="fas fa-trash" style="font-size:25px; color:grey;"></i>{{__('Report')}}
                                         </a>
                                         @else
-                                        <a class="dropdown-item" href="{{route('post.restore',[app()->getLocale(),'post'=>$post->id])}}">
-                                            <i class="fas fa-trash-restore" style="font-size:25px; color:blue; "></i> Restore
+                                        <a class="dropdown-item" href="{{route('comment.restore',[app()->getLocale(),'comment'=>$post->id])}}">
+                                            <i class="fas fa-trash-restore" style="font-size:25px; color:blue; "></i> {{__('Restore')}}
                                         </a>
                                         @endif
 
@@ -637,4 +632,5 @@
         </div>
     </div>
 </div>
+
 @endsection

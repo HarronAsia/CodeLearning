@@ -57,7 +57,7 @@
 
     <div class="container">
         <!--foote_bottom_ul_amrc ends here-->
-        <p class="text-center">Copyright © <a href="https://cybridgeasia.vn/">CYBRiDGE ASIA</a></p>
+        <p class="text-center">{{__('Copyright')}} <i class="far fa-copyright"></i> <a href="https://cybridgeasia.vn/">CYBRiDGE ASIA</a></p>
         <!--social_footer_ul ends here-->
     </div>
 

@@ -14,7 +14,12 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
         return \App\Models\Post::class;
     }
 
-    public function showall($id)
+    public function showall()
+    {
+        return $this->model = Post::with('comments','likes','like')->orderBy('created_at','desc')->get();
+    }
+
+    public function showallonCommunity($id)
     {
         return $this->model = Post::with('comments','likes','like')->withTrashed()->where('community_id',$id)->get();   
     }

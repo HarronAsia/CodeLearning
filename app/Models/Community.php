@@ -16,4 +16,10 @@ class Community extends Model
     {
         return $this->hasMany('App\Models\Post');
     }
+
+    // users that follow this user
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
+    }
 }

@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\CSRF;
 use App\Http\Requests\StoreCSRF;
 use Illuminate\Http\Request;
 use App\Repositories\CSRF\CsrfRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
+
 
 class CSRFController extends Controller
 {
     protected $csrfRepo;
-
-    public function __construct(CsrfRepositoryInterface $csrfRepo)
+    protected $notiRepo;
+    public function __construct(CsrfRepositoryInterface $csrfRepo,NotificationRepositoryInterface $notiRepo)
     {
         $this->csrfRepo = $csrfRepo;
+        $this->notiRepo = $notiRepo;
     }
     /**
      * Display a listing of the resource.
@@ -94,7 +98,8 @@ class CSRFController extends Controller
     public function thiscsrf()
     {
         $csrfs = $this->csrfRepo->showAll();
-        return view('LARAVEL.TheBasics.CSRF.homepage',compact('csrfs'));
+        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('LARAVEL.TheBasics.CSRF.homepage',compact('csrfs','notifications'));
     }
     public function csrfpost(StoreCSRF $request)
     {

@@ -31,6 +31,7 @@ class StorePost extends FormRequest
             'status' => 'required',
             'user_id' => 'required',
             'community_id' =>'required',
+     
         ];
     }
 }

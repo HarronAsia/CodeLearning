@@ -23,14 +23,30 @@ class HomeController extends Controller
 
     public function home()
     {
-        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        if(Auth::guest())
+        {
+            return view('HomePage');
+        }
+        else
+        {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
         
-        return view('HomePage', compact('notifications'));
+            return view('HomePage', compact('notifications'));
+        }
+        
     }
 
     public function laravel()
     {
-        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
-        return view('LARAVEL.Homepage', compact('notifications'));
+        if(Auth::guest())
+        {
+            return view('LARAVEL.Homepage');
+        }
+        else
+        {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('LARAVEL.Homepage', compact('notifications'));
+        }
+       
     }
 }

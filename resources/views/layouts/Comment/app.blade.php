@@ -325,6 +325,10 @@
                 PreviewImage(this);
             });
 
+            $(".camera #comment_image2").change(function() {
+                PreviewImage(this);
+            });
+
             $("[data-toggle=tooltip]").tooltip();
 
         });

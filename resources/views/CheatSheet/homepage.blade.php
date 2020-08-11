@@ -92,9 +92,13 @@
             <p class="text-small">
                 <ul>
                     <li>{{__('Edit')}}</li>
+                    <li>{{__('Delete')}}</li>
+                    <li>{{__('Restore')}}</li>
                 </ul>
             </p>
-            <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            <a href="{{route('cheat.user',app()->getLocale())}}">
+                <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            </a>
         </div>
     </div>
 
@@ -109,7 +113,9 @@
                     <li>{{__('Edit')}}</li>
                 </ul>
             </p>
-            <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            <a href="{{route('cheat.profile',app()->getLocale())}}">
+                <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            </a>
         </div>
     </div>
 
@@ -126,7 +132,9 @@
                     <li>{{__('Restore')}}</li>
                 </ul>
             </p>
-            <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            <a href="{{route('cheat.community',app()->getLocale())}}">
+                <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            </a>
         </div>
     </div>
 
@@ -143,7 +151,9 @@
                     <li>{{__('Restore')}}</li>
                 </ul>
             </p>
-            <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            <a href="{{route('cheat.post',app()->getLocale())}}">
+                <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            </a>
         </div>
     </div>
 
@@ -160,7 +170,9 @@
                     <li>{{__('Restore')}}</li>
                 </ul>
             </p>
-            <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            <a href="{{route('cheat.comment',app()->getLocale())}}">
+                <button type="button" class="btn btn-default mt10" data-toggle="modal" data-target="#item1-services">{{__('Read More')}}</button>
+            </a>
         </div>
     </div>
 

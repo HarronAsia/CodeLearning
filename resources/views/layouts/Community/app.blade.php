@@ -334,6 +334,10 @@
                 }
             }
             
+            $(".btn-info #banner").change(function() {
+                PreviewImage(this);
+            });
+            
             $(".custom-file #image").change(function() {
                 PreviewImage(this);
             });

@@ -142,24 +142,24 @@
                             <img id="image_preview_container" src="{{asset('storage/default.png')}}" alt="preview image" style="width: 300px ; height:300px;">
                             <div style="padding-top: 10px;">
                                 <i class="fas fa-image"></i>&ensp;
-                                <a href="#" class="btn btn-block btn-info" >
+                                <a href="#" class="btn btn-block btn-info">
                                     <label for="photo">{{__('Your Image')}}</label>
-                                    <input type="file" class="form-control" name="photo" id="photo" value="{{ $user->photo}}" style="display: none;">
+                                    <input type="file" class="form-control has-feedback{{ $errors->has('photo') ? ' has-error' : '' }}" name="photo" id="photo" value="{{ $user->photo}}" style="display: none;">
                                 </a>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group has-feedback{{ $errors->has('name') ? ' has-error' : '' }}">
                             <i class="fas fa-user"></i> &ensp;<label for="name">{{__('Your name')}}</label>
                             <input class="form-control" name="name" placeholder="Enter Your Name" value="{{ $user->name}}">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group has-feedback{{ $errors->has('dob') ? ' has-error' : '' }}">
                             <i class="fas fa-calendar"></i>&ensp;<label for="dob">{{__('Your Birthday')}}</label>
                             <input type="date" class="form-control" name="dob" placeholder="Enter Your DOB" value="{{ $user->dob }}">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group has-feedback{{ $errors->has('number') ? ' has-error' : '' }}">
                             <i class="fas fa-phone"></i>&ensp;<label for="number">{{__('Your Phone Number')}}</label>
                             <input type="tel" class="form-control" name="number" placeholder="Enter Your Phone Number" value="{{ $user->number }}">
                         </div>
@@ -169,7 +169,16 @@
                             <button type="reset" class="btn btn-warning">{{__('Reset')}}</button>
                             <a href="{{ url()->previous() }}" class="btn btn-danger">{{__('Cancel')}}</a>
                         </div>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
 
+                        @endif
                     </form>
 
                 </div>

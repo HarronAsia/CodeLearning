@@ -23,17 +23,18 @@
                         <form action="{{ route('community.update',['locale'=>app()->getLocale(),'community'=>$community->id])}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="id" class="form-control form-control-lg" value="{{$community->id}}" required>
+                            <input type="hidden" name="id" class="form-control form-control-lg has-feedback{{ $errors->has('title') ? ' has-error' : '' }}" value="{{$community->id}}" required>
                             <div class="form-group">
                                 <input type="text" name="title" class="form-control form-control-lg" placeholder="Enter Title" value="{{$community->title}}" required>
                             </div>
 
                             <div class="form-group">
                                 <div>
-                                    <button>
+                                    <a href="#" class="btn btn-info">
                                         <label for="banner">{{__('Upload Your Banner image')}}</label>
-                                    </button>
-                                    <input type="file" class="form-control" name="banner" id="banner" style="display: none;"  required>
+
+                                        <input type="file" class="form-control has-feedback{{ $errors->has('banner') ? ' has-error' : '' }}" name="banner" id="banner" style="display: none;" required>
+                                    </a>
                                 </div>
                                 <br>
                                 <img src="{{asset('storage/community/'.$community->title.'/'.$community->banner.'/')}}" alt="Image" style="max-width: 500px ; max-height:500px;">
@@ -47,6 +48,16 @@
                                 <input type="reset" class="btn btn-warning btn-md" value="{{__('Reset')}}">
                                 <button type="button" class="btn btn-danger btn-md" onclick="window.history.back()">{{__('Cancel')}}</button>
                             </div>
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            @endif
                         </form>
                     </div>
 

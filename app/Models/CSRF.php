@@ -11,4 +11,9 @@ class CSRF extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function scopeCreatedAt($query)
+     {
+         return $query->orderBy('created_at','desc');
+     }
 }

@@ -23,7 +23,7 @@
                         <form action="{{ route('community.store',app()->getLocale())}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <input type="text" name="title" class="form-control form-control-lg" placeholder="{{__('Enter Title')}}" required>
+                                <input type="text" name="title" class="form-control form-control-lg has-feedback{{ $errors->has('title') ? ' has-error' : '' }}" placeholder="{{__('Enter Title')}}" required>
                             </div>
 
                             <div class="form-group">
@@ -31,7 +31,7 @@
                                 <div>
                                     <a href="#" class="btn btn-block btn-info">
                                         <label for="banner">{{__('Upload Your Banner image')}}</label>
-                                        <input type="file" class="form-control" name="banner" id="banner" style="display: none;" required>
+                                        <input type="file" class="form-control has-feedback{{ $errors->has('banner') ? ' has-error' : '' }}" name="banner" id="banner" style="display: none;" required>
                                     </a>
                                 </div>
                                 <br>
@@ -44,6 +44,16 @@
                                 <input type="reset" class="btn btn-warning btn-md" value="{{__('Reset')}}">
                                 <button type="button" class="btn btn-danger btn-md" onclick="window.history.back()">{{__('Cancel')}}</button>
                             </div>
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            @endif
                         </form>
                     </div>
 

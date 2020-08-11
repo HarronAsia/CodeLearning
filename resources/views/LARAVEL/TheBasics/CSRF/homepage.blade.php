@@ -182,13 +182,13 @@
             <div class="col col-12 col-sm-12 col-md-6 p-lg-5">
 
                 <div class="p-5">
-                    <h5 class="h5 text-muted">Form with </h5>
-                    <h1 class="h1 mb-5">CSRF Token </h1>
+                    <h5 class="h5 text-muted">{{__('Form with')}} </h5>
+                    <h1 class="h1 mb-5">{{__('CSRF Token')}} </h1>
                     <div>
                         <img class="m-auto" src="{{asset('storage/Requirement/csrfForm.PNG')}}">
                     </div>
-                    <p>CSRF tokens can prevent CSRF attacks by making it impossible for an attacker to construct a fully valid HTTP request suitable for feeding to a victim user. </p>
-                    <p>Since the attacker cannot determine or predict the value of a user's CSRF token, they cannot construct a request with all the parameters that are necessary for the application to honor the request.</p>
+                    <p>{{__('CSRF tokens can prevent CSRF attacks by making it impossible for an attacker to construct a fully valid HTTP request suitable for feeding to a victim user.')}} </p>
+                    <p>{{__('Since the attacker cannot determine or predict the value of a users CSRF token, they cannot construct a request with all the parameters that are necessary for the application to honor the request.')}}</p>
                 </div>
 
             </div>
@@ -196,12 +196,12 @@
             <div class="col col-12 col-sm-12 col-md-6 p-lg-5">
 
                 <div class="p-5">
-                    <h5 class="h5 text-muted">Form Without</h5>
-                    <h1 class="h1 mb-5">CSRF Token </h1>
+                    <h5 class="h5 text-muted">{{__('Form Without')}}</h5>
+                    <h1 class="h1 mb-5">{{__('CSRF Token')}} </h1>
                     <div>
                         <img class="m-auto" src="{{asset('storage/Requirement/Formwithoutcsrf.PNG')}}">
                     </div>
-                    <p>The attacker can easily get easily construct a request with all the parameters which then they can easily go inside our system </p>
+                    <p>{{__('The attacker can easily get easily construct a request with all the parameters which then they can easily go inside our system')}} </p>
                 </div>
 
             </div>
@@ -210,10 +210,10 @@
     <hr>
     <section class="border-bottom">
         <div class="container">
-            <h5>Understanding about CSRF</h5>
+            <h5>{{__('Understanding about CSRF')}}</h5>
             <div class="row text-center ">
-                <p>Laravel makes it easy to protect your application from cross-site request forgery (CSRF) attacks. </p>
-                <p>Cross-site request forgeries are a type of malicious exploit whereby unauthorized commands are performed on behalf of an authenticated user.</p>
+                <p>{{__('Laravel makes it easy to protect your application from cross-site request forgery (CSRF) attacks.')}} </p>
+                <p>{{__('Cross-site request forgeries are a type of malicious exploit whereby unauthorized commands are performed on behalf of an authenticated user.')}}</p>
             </div>
         </div>
     </section>
@@ -223,26 +223,26 @@
         <div class="container">
             <div class="row text-center ">
                 <div class="col col-12 col-sm-12 col-md-6 col-lg-4 p-5 border-bottom border-sm-bottom border-md-bottom-0 border-md-right">
-                    <h5 class="h5 text-muted">Form with </h5>
-                    <h1 class="h1 mb-5">CSRF Token </h1>
+                    <h5 class="h5 text-muted">{{__('Form with')}} </h5>
+                    <h1 class="h1 mb-5">{{__('CSRF Token')}} </h1>
 
                     <form action="{{route('laravel.csrf.post', app()->getLocale())}}" method="POST">
                         @csrf
-                        <input type="text" name="name" placeholder="Enter Your Name" required>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <input type="text" name="name" placeholder="{{__('Enter Your Name')}}" required>
+                        <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
                     </form>
                 </div>
                 <div class="col col-12 col-sm-12 col-md-6 col-lg-4 p-5 border-bottom border-sm-bottom border-md-bottom-0 border-lg-right">
-                    <h5 class="h5 text-muted">Form Without</h5>
-                    <h1 class="h1 mb-5">CSRF Token </h1>
+                    <h5 class="h5 text-muted">{{__('Form Without')}}</h5>
+                    <h1 class="h1 mb-5">{{__('CSRF Token')}} </h1>
 
                     <form action="{{route('laravel.nonecsrf.post', app()->getLocale())}}" method="POST">
-                        <input type="text" name="name" placeholder="Enter Your Name" required>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <input type="text" name="name" placeholder="{{__('Enter Your Name')}}" required>
+                        <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
                     </form>
                 </div>
                 <div class="col col-12 col-sm-12 col-md-6 col-lg-4 p-5 border-bottom border-sm-bottom border-md-bottom-0 border-lg-right">
-                    <h5 class="h5 text-muted">Test Form</h5>
+                    <h5 class="h5 text-muted">{{__('Test Form')}}</h5>
 
                     <ul class="navbar-nav mr-auto ">
                         @foreach($csrfs->take(5) as $csrf)

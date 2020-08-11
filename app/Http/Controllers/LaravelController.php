@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Repositories\Notification\NotificationRepositoryInterface;
+use App\Models\CSRF;
+use App\Http\Requests\StoreCSRF;
+use App\Repositories\CSRF\CsrfRepositoryInterface;
+
 class LaravelController extends Controller
 {
-     protected $notiRepo;
-    public function __construct(NotificationRepositoryInterface $notiRepo)
+    protected $notiRepo;
+    protected $csrfRepo;
+    public function __construct(CsrfRepositoryInterface $csrfRepo, NotificationRepositoryInterface $notiRepo)
     {
+        $this->csrfRepo = $csrfRepo;
         $this->notiRepo = $notiRepo;
     }
     /**
@@ -90,14 +96,95 @@ class LaravelController extends Controller
     }
 
     public function installation()
-    { 
-        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
-        return view('LARAVEL.GettingStarted.Installation',compact('notifications'));
+    {
+        if (Auth::guest()) {
+            return view('LARAVEL.GettingStarted.Installation');
+        } else {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('LARAVEL.GettingStarted.Installation', compact('notifications'));
+        }
     }
 
     public function basic()
     {
-        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
-        return view('LARAVEL.TheBasics.homepage',compact('notifications'));
+        if (Auth::guest()) {
+            return view('LARAVEL.TheBasics.homepage');
+        } else {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('LARAVEL.TheBasics.homepage', compact('notifications'));
+        }
+    }
+
+    public function route()
+    {
+        if (Auth::guest()) {
+            return view('LARAVEL.TheBasics.Route.homepage');
+        } else {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('LARAVEL.TheBasics.Route.homepage', compact('notifications'));
+        }
+    }
+
+    public function thismiddleware()
+    {
+        if (Auth::guest()) {
+            return view('LARAVEL.TheBasics.Middleware.homepage');
+        } else {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('LARAVEL.TheBasics.Middleware.homepage', compact('notifications'));
+        }
+    }
+
+    public function thiscsrf()
+    {
+        $csrfs = $this->csrfRepo->showAll();
+        if (Auth::guest()) {
+            return view('LARAVEL.TheBasics.CSRF.homepage');
+        } else {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('LARAVEL.TheBasics.CSRF.homepage', compact('csrfs', 'notifications'));
+        }
+    }
+
+    public function csrfpost(StoreCSRF $request)
+    {
+        $data = $request->validated();
+        $csrf = new CSRF();
+        $csrf->name = $data['name'];
+        $csrf->save();
+        return redirect()->route('laravel.csrf')->withStatus(' $csrf->name was send successfully');
+    }
+
+    public function nonecsrfpost(StoreCSRF $request)
+    {
+
+        $data = $request->validated();
+        $csrf = new CSRF();
+        $csrf->name = $data['name'];
+        return redirect()->route('laravel.csrf')->withStatus("${$data['name']} was send successfully");;
+    }
+
+    public function controller()
+    {
+        if (Auth::guest()) {
+            return view('LARAVEL.TheBasics.Controller.homepage');
+        } else {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('LARAVEL.TheBasics.Controller.homepage', compact('notifications'));
+        }
+    }
+
+    public function request()
+    {
+        if(Auth::guest())
+        {
+            return view('LARAVEL.TheBasics.Request.homepage');
+        }
+        else
+        {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('LARAVEL.TheBasics.Request.homepage',compact('notifications'));
+        }
+      
     }
 }

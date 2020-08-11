@@ -27,6 +27,8 @@ class StoreComment extends FormRequest
             'comment_detail' => 'required',
             'comment_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'user_id' => 'required',
+            'reply_id' => '',
+            'post_id' => 'required'
         ];
     }
 }

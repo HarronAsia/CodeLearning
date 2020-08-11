@@ -131,7 +131,7 @@
         <div class="col-md-6">
             <div class="profile-head">
                 <h5>
-                    {{ucfirst($user->name)}}
+                    {{$user->name}}
                 </h5>
             </div>
         </div>
@@ -145,7 +145,7 @@
                             <label>{{__('Name')}}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{ucfirst($user->name)}}</p>
+                            <p>{{$user->name}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -153,7 +153,7 @@
                             <label>{{__('Email')}}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{ucfirst($user->email)}}</p>
+                            <p>{{$user->email}}</p>
                         </div>
                     </div>
                     <div class="row">

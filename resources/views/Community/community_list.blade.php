@@ -246,7 +246,7 @@
                         <img src="{{asset('storage/default.png')}}" alt="" />
                         @else
                         <div>
-                            <img src="{{asset('storage/post/'.$post->title.'/'.$post->image)}}" alt="image" >
+                            <img src="{{asset('storage/post/'.$post->title.'/'.$post->image)}}" alt="image">
                         </div>
                         @endif
                         <a href="{{route('community.show',['community'=>$post->community_id,'locale'=>app()->getLocale()])}}" class="read">{{__('read more')}}</a>
@@ -291,10 +291,13 @@
                 @endif
                 <div class="basic-padding">
                     <div class="image-hover">
-
+                        @if($community->banner == NULL)
+                        <img src="{{asset('storage/default.png')}}" class="img-responsive" style="width: 300px; height:300px;">
+                        @else
                         <img src="{{asset('storage/community/'.$community->title.'/'.$community->banner.'/')}}" class="img-responsive" style="width: 300px; height:300px;">
+                        @endif
                         <div class="overlay">
-                            <h2>{{ucfirst($community->title)}}</h2>
+                            <h2>{{$community->title}}</h2>
                             @if($community->deleted_at == NULL)
                             <a href="{{route('community.show',['community'=>$community->id,'locale'=>app()->getLocale()])}}" class="btn-hover">
                                 <i class="far fa-eye" style="font-size:25px; color:white;"></i>

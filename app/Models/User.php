@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+
+class User extends Authenticatable 
 {
-    use Notifiable;
+    use HasApiTokens,Notifiable,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -38,13 +41,48 @@ class User extends Authenticatable
         'role' => 'array',
     ];
 
+    //Make Default for every User to be manager
+    protected $attributes = [
+        'role' => 'manager',
+    ];
+    //Carbonize timestamps
+    protected $dates = ['created_at', 'deleted_at'];
+
     public function profile()
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class)->withDefault();;
     }
 
     public function following()
     {
-        return $this->belongsToMany(Community::class, 'followers', 'follower_id', 'following_id')->withTimestamps();
+        return $this->belongsToMany(Community::class, 'followers', 'follower_id', 'following_id')->withTimestamps()->withDefault();;
     }
+
+
+    //*********************************mutator************************************************************************************************************
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucfirst($value);
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = ucfirst($value);
+    }
+
+    public function setRoleAttribute($value)
+    {
+        $this->attributes['role'] = ucfirst($value);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+
+    //*********************************mutator************************************************************************************************************
+
+    
 }

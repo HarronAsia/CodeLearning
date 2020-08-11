@@ -11,6 +11,15 @@ class Follower extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User')->withDefault();;
+    }
+
+    public function scopeOfFollowerId($query, $id)
+    {
+        return $query->where('follower_id', $id);
+    }
+    public function scopeOfFollowingId($query, $id)
+    {
+        return $query->where('following_id', $id);
     }
 }

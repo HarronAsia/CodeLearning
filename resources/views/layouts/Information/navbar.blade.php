@@ -26,20 +26,22 @@
                 </a>
             </li>
 
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('login', ['locale' => app()->getLocale()]) }}">
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user"></i>
-                    {{ __('Login')}}
-                    <span class="sr-only">(current)</span>
+                    <span></span>
+                    </i>
+                    {{ __('Account')}}
                 </a>
-            </li>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('register', app()->getLocale()) }}">
-                    <i class="fa fa-user"></i>
-                    {{ __('Register')}}
-                    <span class="sr-only">(current)</span>
-                </a>
+                    <a class="dropdown-item" href="{{route('login',app()->getLocale())}}">
+                        <i class="fas fa-sign-in-alt"></i> &ensp; {{ __('Login')}}
+                    </a>
+                    <a class="dropdown-item" href="{{route('register',app()->getLocale())}}">
+                        <i class="far fa-registered"></i> &ensp; {{ __('Register')}}
+                    </a>
+                </div>
             </li>
 
             <li class="nav-item dropdown ">
@@ -104,7 +106,7 @@
                     <a href="{{route('notifications.all',['locale'=>app()->getLocale()])}}">
                         <button class="dropdown-item btn-info">{{__('All Unread Messages')}}</button>
                     </a>
-                    
+
                 </div>
             </li>
 
@@ -117,7 +119,7 @@
                     <i class="fa fa-user">
                         <span></span>
                     </i>
-                    {{__('User')}}
+                    {{Auth::user()->name}}
                 </a>
                 <div class="dropdown-menu">
                     <a href="{{ route('profile.show',['locale' => app()->getLocale(),'profile'=>Auth::user()->id]) }}">

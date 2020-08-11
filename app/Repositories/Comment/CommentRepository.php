@@ -13,9 +13,14 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
         return \App\Models\Comment::class;
     }
 
-    public function showall($id)
+    public function showall()
     {
-        return $this->model = Comment::withTrashed()->get()->where('commentable_id','=',$id);
+        return $this->model = Comment::withTrashed()->paginate(5);
+    }
+
+    public function showallonPost($id)
+    {
+        return $this->model = Comment::withTrashed()->ofPost($id)->get();
     }
 
     public function showComment($id)
@@ -34,7 +39,7 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
     public function restorecomment($id)
     {
        
-        return $this->model = Comment::onlyTrashed()->where('id',$id)->restore();
+        return $this->model = Comment::onlyTrashed()->ofId($id)->restore();
                   
     }
    

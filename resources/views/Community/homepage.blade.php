@@ -316,13 +316,17 @@
         position: absolute;
         z-index: -1;
     }
+
+    .card-inner {
+        margin-left: 4rem;
+    }
 </style>
 <div class="container-fluid gedf-wrapper">
     <div class="row">
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <div class="h5">{{ucfirst($community->title)}}</div>
+                    <div class="h5">{{$community->title}}</div>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
@@ -335,7 +339,7 @@
                     </li>
                     @guest
                     <li class="list-group-item">
-                        <a href="/login" class="btn btn-info">{{__('Get Notification')}}</a>
+                        <a href="{{route('login',app()->getLocale())}}" class="btn btn-info">{{__('Get Notification')}}</a>
                     </li>
                     @else
                     @if ($follower->follower_id?? '' == Auth::user()->id)
@@ -454,8 +458,8 @@
                                     @endif
                                 </div>
                                 <div class="ml-2">
-                                    <div class="h5 m-0">{{ucfirst($post->user->name)}}</div>
-                                    <div class="h7 text-muted">{{ucfirst($post->user->profile->job??'')}}</div>
+                                    <div class="h5 m-0">{{$post->user->name}}</div>
+                                    <div class="h7 text-muted">{{$post->user->profile->job??''}}</div>
                                 </div>
                             </div>
                             <div>
@@ -507,7 +511,7 @@
 
                         @else
                         <div>
-                            <img src="{{asset('storage/post/'.$post->title.'/'.$post->image)}}" alt="image">
+                            <img src="{{asset('storage/post/'.$post->title.'/'.$post->image.'/')}}" alt="image">
                         </div>
                         @endif
                     </div>
@@ -569,8 +573,9 @@
                                         @else
                                         <img src="{{asset('storage/'.$comment->user->name.'/'.$comment->user->photo)}}" alt="Image" class="commenter-image" alt="commenter_image" width="45">
                                         @endif
+
                                         <div class="comment-content">
-                                            <div class="commenter-head"><span class="commenter-name"><a href="">{{ucfirst($comment->user->name)}}</a></span> <span class="comment-date"><i class="far fa-clock"></i>{{$comment->created_at}}</span></div>
+                                            <div class="commenter-head"><span class="commenter-name"><a href="">{{$comment->user->name}}</a></span> <span class="comment-date"><i class="far fa-clock"></i>{{$comment->created_at}}</span></div>
                                             <div class="comment-body">
                                                 <span class="comment">{{$comment->comment_detail}}</span>
                                             </div>
@@ -582,12 +587,22 @@
                                                 <img src="{{asset('storage/comment/post/'.$comment->comment_detail.'/'.$comment->comment_image)}}" alt="image" style="max-width: 200px ; max-height:200px;">
                                                 @endif
                                             </div>
+
                                             <div class="comment-footer">
-                                                <span class="comment-likes">55 <a href="" class="comment-action active"> <i class="far fa-heart"></i></a></span> <span class="comment-reply">66 <a href="" class="comment-action">{{__('Replies')}}</a></span>
+                                                @if($comment->like->user_id??'' == Auth::user()->id)
+                                                <a href="{{route('comment.unlike',[app()->getLocale(),'comment' => $comment->id])}}" class="card-link"><i class="fas fa-thumbs-up"></i></i> {{__('Like')}}&ensp;{{$comment->likes->count()}}</a>
+                                                @else
+                                                <a href="{{route('comment.like',[app()->getLocale(),'comment' => $comment->id])}}" class="card-link"><i class="far fa-thumbs-up"></i> {{__('Like')}}&ensp;{{$comment->likes->count()}}</a>
+                                                @endif
+                                                <a href="#" class="card-link"><i class="fa fa-comment"></i> {{__('Comment')}} &ensp;{{$comment->replies->count()}}</a>
+
                                             </div>
+
                                         </div>
+                                      
                                     </div>
                                 </div>
+                            
                                 <hr>
 
                             </div>

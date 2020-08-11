@@ -16,7 +16,29 @@ class Notification extends DatabaseNotification
 
     public function users()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User')->withDefault();;
     }
 
+    public function scopeReadAt($query)
+    {
+        return $query->whereReadAt(NULL);
+    }
+
+    public function scopeOfUserId($query,$id)
+    {
+        return $query->whereUserId($id);
+    }
+
+    public function scopeCreatedAt($query)
+     {
+         return $query->orderBy('created_at','desc');
+     }
+     public function scopeOfId($query,$id)
+     {
+         return $query->whereId($id);
+     }
+     public function scopeOfNotifiableId($query,$id)
+     {
+         return $query->whereNotifiableId($id);
+     }
 }

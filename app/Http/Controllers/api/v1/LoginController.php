@@ -1,19 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api\v1;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\Notification\NotificationRepositoryInterface;
-
-class ControllerControllers extends Controller
+use App\Models\User;
+class LoginController extends Controller
 {
-
-    protected $notiRepo;
-    public function __construct(NotificationRepositoryInterface $notiRepo)
-    {
-        $this->notiRepo = $notiRepo;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -90,9 +84,18 @@ class ControllerControllers extends Controller
         //
     }
 
-    public function controller()
+    public function login(Request $request)
     {
-        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
-        return view('LARAVEL.TheBasics.Controller.homepage',compact('notifications'));
+        $data = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string'
+        ]);
+       
+        if(!Auth::attempt($data))
+        {
+            return response(['message'=>'Invalid login credentials']);
+        }
+        return Auth::user()->createToken('AuthToken')->accessToken;
+        
     }
 }

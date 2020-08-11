@@ -14,12 +14,26 @@ class Community extends Model
 
     public function posts()
     {
-        return $this->hasMany('App\Models\Post');
+        return $this->hasMany('App\Models\Post')->withDefault();;
     }
 
     // users that follow this user
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
+    }
+
+    //*********************************mutator************************************************************************************************************
+
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = ucfirst($value);
+    }
+
+    //*********************************mutator************************************************************************************************************
+
+    public function scopeOfId($query, $id)
+    {
+        return $query->whereId($id);
     }
 }

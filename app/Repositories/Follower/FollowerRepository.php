@@ -24,9 +24,8 @@ class FollowerRepository extends BaseRepository implements FollowerRepositoryInt
                
     }
     public function showfollowerCommunity($id,$community)
-    {        
-     
-        return $this->model =  Follower::get()->where('follower_id',$id)->where('following_id',$community)->first();
+    {          
+        return $this->model =  Follower::ofFollowerId($id)->ofFollowingId($community)->first();
     }
 
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.Post.app')
 
 @section('content')
 <style>
@@ -54,8 +54,8 @@
                         @endif
                     </div>
                     <div class="ml-2">
-                        <div class="h5 m-0">{{ucfirst($post->user->name)}}</div>
-                        <div class="h7 text-muted">{{ucfirst($post->user->profile->job??'')}}</div>
+                        <div class="h5 m-0">{{$post->user->name}}</div>
+                        <div class="h7 text-muted">{{$post->user->profile->job??''}}</div>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                 <img src="{{asset('storage/post/'.$post->title.'/'.$post->image)}}" alt="image" style="max-width:400px ; max-height:400px;">
                 @endif
                 <i class="fa fa-arrow-right" style="font-size: 25px;"></i>
-                <img id="image_preview_container" src="{{asset('storage/blank.png')}}" alt="preview Banner" style="max-width:400px ; max-height:400px;">
+                <img id="image_preview_container" src="{{asset('storage/default.png')}}" alt="preview Banner" style="max-width:400px ; max-height:400px;">
             </div>
         </div>
         <div class="card-footer">

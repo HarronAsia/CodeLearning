@@ -15,3 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->get('/user', 'UserController@AnyFunction');
+
+Route::group(['middleware' => ['web']], function () {
+    Route::post('/login','Auth\LoginController@login');
+});
+

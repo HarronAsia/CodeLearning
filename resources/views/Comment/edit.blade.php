@@ -25,14 +25,14 @@
                             @csrf
                             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                             <div class="form-group">
-                                <input class="form-control" name="comment_detail" placeholder="Write your comment here" value="{{$comment->comment_detail}}" required>
+                                <input class="form-control has-feedback{{ $errors->has('comment_detail') ? ' has-error' : '' }}" name="comment_detail" placeholder="Write your comment here" value="{{$comment->comment_detail}}" required>
                             </div>
 
                             <div class="form-group">
                                 <div>
                                     <label class="btn btn-file camera">
                                         <i class="fa fa-camera" style="margin-top:10px;"></i>
-                                        <input class="form-control " type="file" id="comment_image" name="comment_image" style="display: none;" />
+                                        <input class="form-control has-feedback{{ $errors->has('comment_image') ? ' has-error' : '' }}" type="file" id="comment_image" name="comment_image" style="display: none;" />
                                     </label>
                                 </div>
                                 <br>
@@ -51,6 +51,16 @@
                                 <input type="reset" class="btn btn-warning btn-md">
                                 <button type="button" class="btn btn-danger btn-md" onclick="window.history.back()">Cancel</button>
                             </div>
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            @endif
                         </form>
                     </div>
 

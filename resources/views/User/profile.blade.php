@@ -131,10 +131,10 @@
         <div class="col-md-9">
             <div class="profile-head">
                 <h5>
-                    {{ucfirst($user->name)}}
+                    {{$user->name}}
                 </h5>
                 <h6>
-                    {{ucfirst($profile->job?? '')}}
+                    {{$profile->job?? ''}}
                 </h6>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
@@ -171,7 +171,7 @@
                             <label>{{__('Name')}}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{ucfirst($user->name)}}</p>
+                            <p>{{$user->name}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -179,7 +179,7 @@
                             <label>{{__('Email')}}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{ucfirst($user->email)}}</p>
+                            <p>{{$user->email}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -203,7 +203,7 @@
                             <label>{{__('Profession')}}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{ucfirst($profile->job?? '')}}</p>
+                            <p>{{$profile->job?? ''}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -239,7 +239,7 @@
                             <label>{{__('Location')}}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{ucfirst($profile->place?? '')}}</p>
+                            <p>{{$profile->place?? ''}}</p>
                         </div>
                     </div>
                     <div class="row">

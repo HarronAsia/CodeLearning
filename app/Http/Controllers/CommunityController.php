@@ -35,8 +35,13 @@ class CommunityController extends Controller
     {
         $communities = $this->communityRepo->showall();
         $posts = $this->postRepo->showall();
-        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
-        return view('Community.community_list', compact('communities', 'posts','notifications'))->with('locale',$locale);
+        if (Auth::guest()) {
+            return view('Community.community_list', compact('communities', 'posts'))->with('locale', $locale);
+        } else {
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('Community.community_list', compact('communities', 'posts', 'notifications'))->with('locale', $locale);
+        }
+       
     }
 
     /**
@@ -47,7 +52,7 @@ class CommunityController extends Controller
     public function create()
     {
         $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
-        return view('Community.add',compact('notifications'));
+        return view('Community.add', compact('notifications'));
     }
 
     /**
@@ -56,7 +61,7 @@ class CommunityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCommunity $request,$locale)
+    public function store(StoreCommunity $request, $locale)
     {
         $data = $request->validated();
 
@@ -77,7 +82,7 @@ class CommunityController extends Controller
 
         $community->banner = $data['banner'];
         $community->save();
-        return redirect()->route('community.index',['locale'=>$locale]);
+        return redirect()->route('community.index', ['locale' => $locale]);
     }
 
     /**
@@ -88,12 +93,23 @@ class CommunityController extends Controller
      */
     public function show($locale, $community)
     {
+
         $community = $this->communityRepo->showcommunity($community);
         $posts = $this->postRepo->showallonCommunity($community->id);
-        $follower = $this->followRepo->showfollowerCommunity(Auth::user()->id, $community->id);
+        
         $followers = $this->followRepo->showfollowers($community->id);
-        $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
-        return view('Community.homepage', compact('locale', 'community', 'posts', 'follower', 'followers','notifications'));
+
+        if(Auth::guest())
+        {
+            return view('Community.homepage', compact('locale', 'community', 'posts', 'followers'));
+        }
+        else
+        {
+            $follower = $this->followRepo->showfollowerCommunity(Auth::user()->id, $community->id);
+            $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+            return view('Community.homepage', compact('locale', 'community', 'posts', 'follower', 'followers', 'notifications'));
+        }
+        
     }
 
     /**
@@ -106,7 +122,7 @@ class CommunityController extends Controller
     {
         $community = $this->communityRepo->showcommunity($community);
         $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
-        return view('Community.edit', compact('community','notifications'));
+        return view('Community.edit', compact('community', 'notifications'));
     }
 
     /**
@@ -116,7 +132,7 @@ class CommunityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCommunity $request,$locale,$community)
+    public function update(StoreCommunity $request, $locale, $community)
     {
         $data = $request->validated();
 
@@ -151,7 +167,7 @@ class CommunityController extends Controller
         }
         $community->banner = $filename;
         $community->update();
-        return redirect()->route('community.index',['locale'=>$locale]);
+        return redirect()->route('community.index', ['locale' => $locale]);
     }
 
     /**

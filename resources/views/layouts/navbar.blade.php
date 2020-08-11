@@ -35,10 +35,10 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'en'])}}">
+                    <a class="dropdown-item" href="{{route('login',app()->getLocale())}}">
                         <i class="fas fa-sign-in-alt"></i> &ensp; {{ __('Login')}}
                     </a>
-                    <a class="dropdown-item" href="{{route(Route::currentRouteName(), ['locale' => 'jp'])}}">
+                    <a class="dropdown-item" href="{{route('register',app()->getLocale())}}">
                         <i class="far fa-registered"></i> &ensp; {{ __('Register')}}
                     </a>
                 </div>
@@ -103,11 +103,11 @@
                     <p class="dropdown-item">{{json_decode(json_encode($noti->data))->data}}</p>
 
                     <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                     @endforeach
+                    @endforeach
                     <a href="{{route('notifications.all',['locale'=>app()->getLocale()])}}">
                         <button class="dropdown-item btn-info">{{__('All Unread Messages')}}</button>
                     </a>
-                   
+
                 </div>
             </li>
 
@@ -120,7 +120,7 @@
                     <i class="fa fa-user">
                         <span></span>
                     </i>
-                    {{__('User')}}
+                    {{Auth::user()->name}}
                 </a>
                 <div class="dropdown-menu">
                     <a href="{{ route('profile.show',['locale' => app()->getLocale(),'profile'=>Auth::user()->id]) }}">

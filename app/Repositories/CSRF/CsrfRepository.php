@@ -15,6 +15,6 @@ class CsrfRepository extends BaseRepository implements CsrfRepositoryInterface
 
     public function showAll()
     {
-        return $this->model::orderBy('created_at','desc')->get();
+        return $this->model::CreatedAt()->get();
     }
 }

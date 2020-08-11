@@ -412,6 +412,10 @@
                 PreviewImage(this);
             });
 
+            $(".camera #comment_image").change(function() {
+                PreviewImage2(this);
+            });
+
 
             $("#news-slider4").owlCarousel({
                 items: 3,
@@ -424,6 +428,7 @@
             });
 
             $("[data-toggle=tooltip]").tooltip();
+
 
         });
     </script>

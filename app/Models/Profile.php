@@ -14,6 +14,41 @@ class Profile extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User')->withDefault();;
     }
+
+     //*********************************mutator************************************************************************************************************
+
+     public function setPlaceAttribute($value)
+     {
+         $this->attributes['place'] = ucfirst($value);
+     }
+ 
+     public function setJobAttribute($value)
+     {
+         $this->attributes['job'] = ucfirst($value);
+     }
+ 
+     public function setSupervisorNameAttribute($value)
+     {
+         $this->attributes['supervisor_name'] = ucfirst($value);
+     }
+ 
+     public function setDetailAttribute($value)
+     {
+         $this->attributes['detail'] = ucfirst($value);
+     }
+ 
+     public function setGooglePlusNameAttribute($value)
+     {
+         $this->attributes['google_plus_name'] = ucfirst($value);
+     }
+ 
+     //*********************************mutator************************************************************************************************************
+
+     public function scopeOfId($query, $id)
+    {
+        return $query->whereUserId($id);
+    }
+ 
 }

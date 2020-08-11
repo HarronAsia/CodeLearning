@@ -34,7 +34,7 @@ class CommunityRepository extends BaseRepository implements CommunityRepositoryI
 
     public function restorecommunity($id)
     {
-        return $this->model->onlyTrashed()->where('id',$id)->restore();   
+        return $this->model->onlyTrashed()->ofId($id)->restore();   
     }
 
     public function getTrash($id)

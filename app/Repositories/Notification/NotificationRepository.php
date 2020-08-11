@@ -24,12 +24,12 @@ class NotificationRepository extends BaseRepository implements NotificationRepos
 
     public function showallUnreadbyUser($id)
     {
-        return $this->model = Notification::where('read_at',NULL)->where('user_id',$id)->orderBy('created_at','desc')->get();
+        return $this->model = Notification::ReadAt()->ofUserId($id)->CreatedAt()->get();
     }
 
     public function readAt($id)
     {
-        return $this->model =  DB::table('notifications')->where('id', $id)->update(['read_at' => Carbon::now()]);
+        return $this->model =  Notification::ofId($id)->update(['read_at' => Carbon::now()]);
     }
 
     public function readAll()
@@ -46,6 +46,6 @@ class NotificationRepository extends BaseRepository implements NotificationRepos
 
     public function updateUserId($id,$notifiableid)
     {      
-        return $this->model = Notification::where('notifiable_id',$notifiableid)->orderBy('created_at','desc')->first()->update(['user_id' =>$id]);
+        return $this->model = Notification::OfNotifiableId($notifiableid)->CreatedAt()->first()->update(['user_id' =>$id]);
     }
 }

@@ -282,23 +282,23 @@
 <div class="col-lg-12 ">
     <nav>
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link" id="nav-introduction-tab" data-toggle="tab" href="#nav-introduction" role="tab" aria-controls="nav-introduction" aria-selected="false">Introduction</a>
-            <a class="nav-item nav-link" id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="false">Basic Controllers</a>
-            <a class="nav-item nav-link" id="nav-middleware-tab" data-toggle="tab" href="#nav-middleware" role="tab" aria-controls="nav-middleware" aria-selected="false">Controller Middleware</a>
-            <a class="nav-item nav-link" id="nav-resource-tab" data-toggle="tab" href="#nav-resource" role="tab" aria-controls="nav-resource" aria-selected="false">Resource Controllers</a>
-            <a class="nav-item nav-link" id="nav-injection-tab" data-toggle="tab" href="#nav-injection" role="tab" aria-controls="nav-injection" aria-selected="false">Dependency Injection & Controllers</a>
-            <a class="nav-item nav-link" id="nav-caching-tab" data-toggle="tab" href="#nav-caching" role="tab" aria-controls="nav-caching" aria-selected="false">Route Caching</a>
+            <a class="nav-item nav-link" id="nav-introduction-tab" data-toggle="tab" href="#nav-introduction" role="tab" aria-controls="nav-introduction" aria-selected="false">{{__('Introduction')}}</a>
+            <a class="nav-item nav-link" id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="false">{{__('Basic Controllers')}}</a>
+            <a class="nav-item nav-link" id="nav-middleware-tab" data-toggle="tab" href="#nav-middleware" role="tab" aria-controls="nav-middleware" aria-selected="false">{{__('Controller Middleware')}}</a>
+            <a class="nav-item nav-link" id="nav-resource-tab" data-toggle="tab" href="#nav-resource" role="tab" aria-controls="nav-resource" aria-selected="false">{{__('Resource Controllers')}}</a>
+            <a class="nav-item nav-link" id="nav-injection-tab" data-toggle="tab" href="#nav-injection" role="tab" aria-controls="nav-injection" aria-selected="false">{{__('Dependency Injection & Controllers')}}</a>
+            <a class="nav-item nav-link" id="nav-caching-tab" data-toggle="tab" href="#nav-caching" role="tab" aria-controls="nav-caching" aria-selected="false">{{__('Route Caching')}}</a>
         </div>
     </nav>
     <!------------------------------------------------------------- Introduction -------------------------------------------------------->
     <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-introduction" role="tabpanel" aria-labelledby="nav-introduction-tab">
-            <p class="text-muted">&ensp;In the <strong>MVC framework</strong> , the letter ‘C’ stands for Controller. It acts as a directing traffic between Views and Models.</p>
-            <p class="text-muted">&ensp;Controllers can group related request handling logic into a single class instead of defining all of your request handling logic in route</p>
-            <h4>Create a new Controller is super easy!</h4>
+            <p class="text-muted">&ensp;{{__('In the MVC framework, the letter ‘C’ stands for Controller. It acts as a directing traffic between Views and Models.')}}</p>
+            <p class="text-muted">&ensp;{{__('Controllers can group related request handling logic into a single class instead of defining all of your request handling logic in route')}}</p>
+            <h4>{{__('Create a new Controller is super easy!')}}</h4>
             <img src="{{asset('storage/Requirement/makeController.PNG')}}" class="img-fluid" alt="" />
             <p class="text-muted">&ensp;<strong>php artisan make:controller YourController</strong></p>
-            <p><small>After ran this command, inside the <strong>App\Http\Controllers\</strong>. the YourController will be stored inside this path. </small></p>
+            <p><small>{{__('After ran this command, inside the')}} <strong>App\Http\Controllers\</strong>. {{__('the YourController will be stored inside this path.')}} </small></p>
         </div>
         <!------------------------------------------------------------- Introduction -------------------------------------------------------->
 
@@ -308,66 +308,66 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h3>
-                            Defining Controllers
+                            {{__('Defining Controllers')}}
                         </h3>
                         <p>
-                            There are many ways you can define the variable and attach it to your page. In this example , i will only show you 3 type of commons ways to define the controller
+                            {{__('There are many ways you can define the variable and attach it to your page.In this example , i will only show you 3 type of commons ways to define the controller')}}
                         </p>
-                        <h4>Put inside the View</h4>
+                        <h4>{{__('Put inside the View')}}</h4>
 
-                        <p><strong> return view('Somewhere.somewhere', ['YourVariable' => YourModel::YourQuerry(Thing-You-Want-To-Find)]);</strong></p>
-                        <p><small>The command above can be explained by this:</small></p>
+                        <p><strong> return view('{{__('Some where')}}.{{__('some where')}}', ['{{__('Your Variable')}}' => {{__('Your Model')}}::{{__('Your Querry')}}({{__('Thing You Want To Find')}})]);</strong></p>
+                        <p><small>{{__('The command above can be explained by this:')}}</small></p>
                         <small>
                             <ul>
                                 <li>
-                                    $view is the Blade you want it to return . For Example: Welcome.blade.php so the $view will be <strong>return view('Welcome');</strong>
+                                   {{__('$view is the Blade you want it to return . For Example: Welcome.blade.php so the $view will be')}} <strong>return view('Welcome');</strong>
                                 </li>
                                 <li>
-                                    Your Querry is the MYSQL command such as (findOrFail, get,all,select from where) <br>
-                                    $data is the variables you want it to have inside the view. For Example: We will imply the name of something inside the view so the command will be <br>
-                                    <strong>return view('Welcome',['NameOfSomething' =>YourModel::YourQuerry]);</strong>
+                                    {{__('Your Querry is the MYSQL command such as (findOrFail, get,all,select from where)')}} <br>
+                                    {{__('$data is the variables you want it to have inside the view. For Example: We will imply the name of something inside the view so the command will be')}} <br>
+                                    <strong>return view('Welcome',['{{__('Name Of Something')}}' =>{{__('Your Model')}}::{{__('Your Querry')}}]);</strong>
                                 </li>
                                 <li>
-                                    $mergeData is the join 2 table together, by Defaul this will be NULL.
+                                    {{__('$mergeData is the join 2 table together, by Defaul this will be NULL.')}}
                                 </li>
                             </ul>
                         </small>
 
-                        <h4>Using Compact</h4>
-                        <p><strong> return view('Somewhere.somewhere', compact('YourVariable'));</strong></p>
-                        <p>Compact is a PHP function that allows you create an array with variable names and their values. <small>The command above can be explained by this:</small> </p>
-                        <h5>Right Way to use:</h5>
+                        <h4>{{__('Using Compact')}}</h4>
+                        <p><strong> return view('{{__('Some where')}}.{{__('some where')}}', compact('{{__('Your Variable')}}'));</strong></p>
+                        <p>{{__('Compact is a PHP function that allows you create an array with variable names and their values.')}} <small>{{__('The command above can be explained by this:')}}</small> </p>
+                        <h5>{{__('Right Way to use:')}}</h5>
                         <div class="row">
                             <div class="col">
                                 <i class="fas fa-times-circle" style="color: red;"></i>
-                                return view('Somewhere.somewhere', compact('YourVariable'));
+                                return view('{{__('Some where')}}.{{__('some where')}}', compact('{{__('Your Variable')}}'));
 
                             </div>
                             <div class="col">
                                 <i class="fas fa-check-circle" style="color: green;"></i>
-                                $YourVariable = YourModel::findOrFail($id);
-                                return view('Somewhere.somewhere', compact('YourVariable'));
+                                ${{__('YourVariable')}} = {{__('Your Model')}}::findOrFail($id);
+                                return view('{{__('Some where')}}.{{__('some where')}}', compact('{{__('Your Variable')}}'));
 
                             </div>
                         </div>
-                        <p style="color: red;">If you using compact, remember to do any logic like find something before using this.</p>
+                        <p style="color: red;">{{__('If you using compact, remember to do any logic like find something before using this.')}}</p>
 
-                        <h4>Using With</h4>
-                        <p><strong> return view('Somewhere.somewhere')->with('YourVariable',YourModel::YourQuerry(Thing-You-want-to-find));</strong></p>
-                        <p>It basicially the same as Using View</p>
+                        <h4>{{__('Using With')}}</h4>
+                        <p><strong> return view('{{__('Some where')}}.{{__('some where')}}')->with('{{__('Your Variable')}}',{{__('Your Model')}}::{{__('Your Querry')}}({{__('Thing You Want To Find')}}));</strong></p>
+                        <p>{{__('It basicially the same as Using View')}}</p>
                     </div>
                     <div class="col-md-6">
                         <img src="{{asset('storage/Requirement/DefineController.PNG')}}" class="img-fluid" alt="" />
-                        <p style="color: grey;"><small>You can easily define the controller like the image above</small></p>
+                        <p style="color: grey;"><small>{{__('You can easily define the controller like the image above')}}</small></p>
                         <img src="{{asset('storage/Requirement/DefineControllerInRoute.PNG')}}" class="img-fluid" alt="" />
-                        <p style="color: grey;"><small>You can easily define the controller in route like the image above</small></p>
+                        <p style="color: grey;"><small>{{__('You can easily define the controller in route like the image above')}}</small></p>
                         <img src="{{asset('storage/Requirement/UsingView.PNG')}}" class="img-fluid2" alt="" />
-                        <p style="color: grey;"><small>You can easily using the view like the image above</small></p>
+                        <p style="color: grey;"><small>{{__('You can easily using the view like the image above')}}</small></p>
 
                         <img src="{{asset('storage/Requirement/UsingCompact.PNG')}}" class="img-fluid2" alt="" />
-                        <p style="color: grey;"><small>You can easily using the compact like the image above</small></p>
+                        <p style="color: grey;"><small>{{__('You can easily using the compact like the image above')}}</small></p>
                         <img src="{{asset('storage/Requirement/UsingWith.PNG')}}" class="img-fluid2" alt="" />
-                        <p style="color: grey;"><small>You can easily using the with like the image above</small></p>
+                        <p style="color: grey;"><small>{{__('You can easily using the with like the image above')}}</small></p>
 
 
                     </div>
@@ -383,19 +383,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <img src="{{asset('storage/Requirement/use-middleware.PNG')}}" class="img-fluid" alt="" />
-                        <p style="color: grey;"><small>Middleware may be assigned to the controller's routes in your route</small></p>
-                        <h4>Example</h4>
+                        <p style="color: grey;"><small>{{__('Middleware may be assigned to the controllers routes in your route')}}</small></p>
+                        <h4>{{__('Example')}}</h4>
                         <img src="{{asset('storage/Requirement/MiddlewareController.PNG')}}" class="img-fluid" alt="" />
-                        <p style="color: grey;"><small> You can use this to make every functions , which inside the route, to go through this middleware</small></p>
+                        <p style="color: grey;"><small> {{__('You can use this to make every functions , which inside the route, to go through this middleware')}}</small></p>
                     </div>
                     <div class="col-md-6">
                         <h3>
-                            Controller Middleware
+                            {{__('Controller Middleware')}}
                         </h3>
                         <p>
-                            However, it's more convenient to specify middleware within your controller's constructor. <br> By create a <strong>public function __construct(){}</strong> above the controller.
-
-
+                            {{__('However, its more convenient to specify middleware within your controllers constructor. By create a')}} <strong>public function __construct(){}</strong> {{__('above the controller.')}}
                         </p>
                     </div>
                 </div>
@@ -408,25 +406,24 @@
             <div class="container section">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>Resource Controllers</h3>
+                        <h3>{{__('Resource Controllers')}}</h3>
                         <p>
-                            Laravel resource routing assigns the typical "CRUD" routes to a controller with a single line of code. <br>
-                            Basicially it will store any functions that will requests HTTP.
-                            <h4>Command</h4>
+                            {{__('Laravel resource routing assigns the typical CRUD routes to a controller with a single line of code.Basicially it will store any functions that will requests HTTP.')}}
+                            <h4>{{__('Command')}}</h4>
                             <strong>php artisan make:controller YourController --resource</strong> <br>
-                            <small>This command will create a YourController with all the functions such as:</small>
+                            <small>{{__('This command will create a YourController with all the functions such as:')}}</small>
                             <ul>
-                                <li>index</li>
-                                <li>create</li>
-                                <li>store</li>
-                                <li>show</li>
-                                <li>edit</li>
-                                <li>update</li>
-                                <li>delete</li>
+                                <li>{{__('index')}}</li>
+                                <li>{{__('create')}}</li>
+                                <li>{{__('store')}}</li>
+                                <li>{{__('show')}}</li>
+                                <li>{{__('edit')}}</li>
+                                <li>{{__('update')}}</li>
+                                <li>{{__('delete')}}</li>
                             </ul>
-                            <h4>MInizing the Route</h4>
+                            <h4>{{__('MInizing the Route')}}</h4>
                             <img src="{{asset('storage/Requirement/route-resource.PNG')}}" class="img-fluid" alt="" />
-                            <small>This command will automatically group all of those functions above and modified like this table:</small>
+                            <small>{{__('This command will automatically group all of those functions above and modified like this table:')}}</small>
                         </p>
 
                     </div>
@@ -434,54 +431,54 @@
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Verb</th>
-                                    <th scope="col">URI</th>
-                                    <th scope="col">Action</th>
-                                    <th scope="col">Route Name</th>
+                                    <th scope="col">{{__('Verb')}}</th>
+                                    <th scope="col">{{__('URI')}}</th>
+                                    <th scope="col">{{__('Action')}}</th>
+                                    <th scope="col">{{__('Route Name')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>GET</td>
-                                    <td><code class=" language-php"><span class="token operator">/</span>somethings</code></td>
+                                    <td><code class=" language-php"><span class="token operator">/</span>{{__('somethings')}}</code></td>
                                     <td>index</td>
-                                    <td>somethings.index</td>
+                                    <td>{{__('somethings')}}.index</td>
                                 </tr>
                                 <tr>
                                     <td>GET</td>
-                                    <td><code class=" language-php"><span class="token operator">/</span>somethings<span class="token operator">/</span>create</code></td>
+                                    <td><code class=" language-php"><span class="token operator">/</span>{{__('somethings')}}<span class="token operator">/</span>create</code></td>
                                     <td>create</td>
-                                    <td>somethings.create</td>
+                                    <td>{{__('somethings')}}.create</td>
                                 </tr>
                                 <tr>
                                     <td>POST</td>
-                                    <td><code class=" language-php"><span class="token operator">/</span>somethings</code></td>
+                                    <td><code class=" language-php"><span class="token operator">/</span>{{__('somethings')}}</code></td>
                                     <td>store</td>
-                                    <td>somethings.store</td>
+                                    <td>{{__('somethings')}}.store</td>
                                 </tr>
                                 <tr>
                                     <td>GET</td>
-                                    <td><code class=" language-php"><span class="token operator">/</span>somethings<span class="token operator">/</span><span class="token punctuation">{</span>something<span class="token punctuation">}</span></code></td>
+                                    <td><code class=" language-php"><span class="token operator">/</span>{{__('somethings')}}<span class="token operator">/</span><span class="token punctuation">{</span>something<span class="token punctuation">}</span></code></td>
                                     <td>show</td>
-                                    <td>somethings.show</td>
+                                    <td>{{__('somethings')}}.show</td>
                                 </tr>
                                 <tr>
                                     <td>GET</td>
-                                    <td><code class=" language-php"><span class="token operator">/</span>somethings<span class="token operator">/</span><span class="token punctuation">{</span>something<span class="token punctuation">}</span><span class="token operator">/</span>edit</code></td>
+                                    <td><code class=" language-php"><span class="token operator">/</span>{{__('somethings')}}<span class="token operator">/</span><span class="token punctuation">{</span>something<span class="token punctuation">}</span><span class="token operator">/</span>edit</code></td>
                                     <td>edit</td>
-                                    <td>somethings.edit</td>
+                                    <td>{{__('somethings')}}.edit</td>
                                 </tr>
                                 <tr>
                                     <td>PUT/PATCH</td>
-                                    <td><code class=" language-php"><span class="token operator">/</span>somethings<span class="token operator">/</span><span class="token punctuation">{</span>something<span class="token punctuation">}</span></code></td>
+                                    <td><code class=" language-php"><span class="token operator">/</span>{{__('somethings')}}<span class="token operator">/</span><span class="token punctuation">{</span>something<span class="token punctuation">}</span></code></td>
                                     <td>update</td>
-                                    <td>somethings.update</td>
+                                    <td>{{__('somethings')}}.update</td>
                                 </tr>
                                 <tr>
                                     <td>DELETE</td>
-                                    <td><code class=" language-php"><span class="token operator">/</span>somethings<span class="token operator">/</span><span class="token punctuation">{</span>something<span class="token punctuation">}</span></code></td>
+                                    <td><code class=" language-php"><span class="token operator">/</span>{{__('somethings')}}<span class="token operator">/</span><span class="token punctuation">{</span>something<span class="token punctuation">}</span></code></td>
                                     <td>destroy</td>
-                                    <td>somethings.destroy</td>
+                                    <td>{{__('somethings')}}.destroy</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -497,13 +494,13 @@
                 <div class="row">
                     <div>
                         <h3>
-                            Injection
+                            {{__('Injection')}}
                         </h3>
-                        <p>In Route, when we use dynamic parameter like {something}. We can easily get that parameter and inject into the Controller like this:</p>
+                        <p>{{__('In Route, when we use dynamic parameter like {something}. We can easily get that parameter and inject into the Controller like this:')}}</p>
                     </div>
                     <div>
                         <img src="{{asset('storage/Requirement/injection.PNG')}}" class="img-fluid" alt="" />
-                        <small>The last function which using <strong>Request</strong> will extract all of the request that currently happenning inside the page. </small>
+                        <small>{{__('The last function which using')}} <strong>{{__('Request')}}</strong> {{__('will extract all of the request that currently happenning inside the page.')}} </small>
                     </div>
                 </div>
             </div>
@@ -516,12 +513,11 @@
                 <div class="row">
                     <div>
                         <h3>
-                            Route Caching
+                            {{__('Route Caching')}}
                         </h3>
-                        <p>If your application is exclusively using controller based routes, you should take advantage of Laravel's route cache.It will drastically
-                            decrease the amount of time it takes to register all of your application's routes and boost your route registration to 100x faster. <br>
-                            <strong style="color: red;">But if you are using Laravel framework then you need to modify a little bit before running the command below</strong> <br>
-                            First , go to <strong>route/api.php</strong> <br>
+                        <p>{{__('If your application is exclusively using controller based routes, you should take advantage of Laravels route cache.It will drastically decrease the amount of time it takes to register all of your applications routes and boost your route registration to 100x faster.')}} <br>
+                            <strong style="color: red;">{{__('But if you are using Laravel framework then you need to modify a little bit before running the command below')}}</strong> <br>
+                            {{__('First , go to')}} <strong>route/api.php</strong> <br>
                             <div class="row">
                                 <div class="col">
                                     <img src="{{asset('storage/Requirement/originial_api.PNG')}}" class="img-fluid2" alt="" />
@@ -531,19 +527,19 @@
                                     <img src="{{asset('storage/Requirement/modified-api.PNG')}}" class="img-fluid2" alt="" />
                                 </div>
                             </div>
-                            Then go to <strong>App\Http\Controllers\UserController</strong> to add this function into it. <br>
+                            {{__('Then go to')}} <strong>App\Http\Controllers\UserController</strong> {{__('to add this function into it.')}} <br>
                             <img src="{{asset('storage/Requirement/User-Api.PNG')}}" class="img-fluid2" alt="" />
-                            <strong style="color: grey;">If you don't have UserController then don't worry, just run <b> php artisan make:controller UserController</b></strong>
+                            <strong style="color: grey;">{{__('If you dont have UserController then dont worry, just run')}} <b> php artisan make:controller UserController</b></strong>
                         </p>
                     </div>
                     <div>
-                        <p>The reason why we need to modified before run this Command is because it's happened to be a minor bugs from Laravel when they try to get the user from nothing so the function will return error can't seriliaztion</p>
-                        <h4>Command</h4>
+                        <p>{{__('The reason why we need to modified before run this Command is because its happened to be a minor bugs from Laravel when they try to get the user from nothing so the function will return error cant seriliaztion')}}</p>
+                        <h4>{{__('Command')}}</h4>
                         <p> <strong>php artisan route:cache</strong></p>
                     </div>
 
                     <img src="{{asset('storage/Requirement/route-cache.PNG')}}" class="img-fluid" alt="" />
-                    <p><small>If use feel slow in the route registration, run this command to clear all the route cache. <strong>php artisan route:clear</strong>  </small></p>
+                    <p><small>{{__('If use feel slow in the route registration, run this command to clear all the route cache.')}} <strong>php artisan route:clear</strong>  </small></p>
                 </div>
             </div>
         </div>

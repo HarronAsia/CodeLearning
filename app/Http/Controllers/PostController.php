@@ -4,16 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Repositories\Post\PostRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
+
 
 class PostController extends Controller
 {
     protected $postRepo;
-    public function __construct(PostRepositoryInterface $postRepo)
+    protected $notiRepo;
+    
+    public function __construct(PostRepositoryInterface $postRepo, NotificationRepositoryInterface $notiRepo)
     {
         $this->middleware('auth');
         $this->postRepo = $postRepo;
+        $this->notiRepo = $notiRepo;
+
     }
     /**
      * Display a listing of the resource.
@@ -41,7 +48,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePost $request)
+    public function store(StorePost $request,$locale)
     {
         
         if ($request->has('post_form')) {
@@ -63,6 +70,7 @@ class PostController extends Controller
                 $data['image']->move($path, $filename);
                 $data['image'] = $filename;
                 $post->image = $data['image'];
+                
                 $post->save();
                 return redirect()->back();
             } else {
@@ -90,10 +98,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($post)
+    public function edit($locale,$post)
     {
         $post = $this->postRepo->showpost($post);
-        return view('Post.edit', compact('post'));
+         $notifications = $this->notiRepo->showallUnreadbyUser(Auth::user()->id);
+        return view('Post.edit', compact('post', 'notifications'));
     }
 
     /**
@@ -103,7 +112,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePost $request, $post)
+    public function update(StorePost $request,$locale, $post)
     {
         $data = $request->validated();
 
@@ -137,11 +146,11 @@ class PostController extends Controller
             $data['image'] = $filename;
             $post->image = $data['image'];
             $post->update();
-            return redirect()->route('community.show', $post->community_id);
+            return redirect()->route('community.show', ['locale'=>$locale,'community'=>$post->community_id]);
         } else {
 
             $post->update();
-            return redirect()->route('community.show', $post->community_id);
+            return redirect()->route('community.show', ['locale'=>$locale,'community'=>$post->community_id]);
         }
     }
 
@@ -152,13 +161,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($post)
+    public function destroy($locale,$post)
     {
         $this->postRepo->deletepost($post);
         return redirect()->back();
     }
 
-    public function restore($post)
+    public function restore($locale,$post)
     {
         $this->postRepo->restorepost($post);
         return redirect()->back();

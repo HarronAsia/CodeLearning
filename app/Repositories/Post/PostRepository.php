@@ -16,12 +16,14 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
 
     public function showall()
     {
-        return $this->model = Post::with('comments','likes','like')->orderBy('created_at','desc')->get();
+        return $this->model = Post::with('comments','likes','like')->withTrashed()->CreatedAt()->get();
     }
 
     public function showallonCommunity($id)
     {
-        return $this->model = Post::with('comments','likes','like')->withTrashed()->where('community_id',$id)->get();   
+        
+        return $this->model = Post::with('comments','likes','like')->withTrashed()->ofCommunity($id)->get();   
+  
     }
 
     public function showpost($id)
@@ -40,7 +42,7 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
     public function restorepost($id)
     {
        
-        return $this->model = Post::onlyTrashed()->where('id',$id)->restore();      
+        return $this->model = Post::onlyTrashed()->ofId($id)->restore();      
         
     }
     public function getTrash($id)
